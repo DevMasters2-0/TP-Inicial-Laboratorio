@@ -1,0 +1,83 @@
+.main {
+  padding: 2rem;
+  /**background: linear-gradient(120deg, #00222fff, 80%, transparent) ;**/
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #f1f1f1;
+  font-family: sans-serif;
+  font-size: 1rem;
+  row-gap: 1rem;
+  max-width: 800px;
+  background: transparent;
+}
+
+.mensaje-container {
+
+}
+
+.mensaje-container h2 {
+  font-size: 1rem;
+}
+
+.mensaje-container p {
+  font-size: 0.6rem;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 500px;
+  background-color: #000000;
+  border-radius: 0.2rem;
+  color: #f1f1f1;
+  border-color: white;
+  border: solid 1px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1rem;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 0.6rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.2rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.submit-button {
+  background-color: #e95318;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.7rem;
+  transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
