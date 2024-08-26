@@ -1,0 +1,5 @@
+.mapa {
+    height: calc(100vh - 7rem);
+    width: 100%;
+    border-radius: 0.3rem;
+}
