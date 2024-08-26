@@ -4,6 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import router from './routes';
+import os from 'os';
 
 // Create Express server
 const app = express(); // New express instance
@@ -20,8 +21,20 @@ app.use('/', router);
 
 // Start Express server
 app.listen(port, () => {
-  // Callback function when server is successfully started
-  console.log(`Server started at http://localhost:${port}`);
+  // Callback cuando el servidor se inicia correctamente
+  console.log(`Servidor iniciado en http://localhost:${port}`);
+
+  // Muestra la IP local para acceder desde otros dispositivos
+  const networkInterfaces = os.networkInterfaces();
+  for (const iface of Object.values(networkInterfaces)) {
+    if (iface) {
+      for (const info of iface) {
+        if (info.family === 'IPv4' && !info.internal) {
+          console.log(`Accede desde otra máquina en la red: http://${info.address}:${port}`);
+        }
+      }
+    }
+  }
 });
 
 // Export Express app

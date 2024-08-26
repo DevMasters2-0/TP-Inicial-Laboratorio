@@ -1,13 +1,27 @@
 import React from 'react';
 import './App.css';
 import MapComponent from './components/Map/MapComponent';
+import axios from 'axios';
+import Incidencia from './components/Incidencia/Incidencia';
 
 function App() {
-  const [mapView, setMapView] = React.useState(true);
+  const [mapView, setMapView] = React.useState(false);
 
   const handleChange = (flag) => {
     return () => setMapView(flag);
   };
+
+  const [incidencias, setIncidencias] = React.useState([]);
+
+
+  React.useEffect(() => {
+    const fetchIncidencias = async () => {
+      const response = await axios.get(`http://${import.meta.env.VITE_IP}/incidencias`);
+      setIncidencias(response.data.Incidencias);
+    };
+
+    fetchIncidencias();
+  }, [])
 
   return (
     <>
@@ -61,32 +75,13 @@ function App() {
                     <div className="boton-detalle">+</div>
                   </div>
                 </div>
-                <div className="incidencia">
-                  <div className="incidencia-nombre">
-                    Incidencia
-                  </div>
-                  <div className="incidencia-localidad">
-                    Jose C Paz
-                  </div>
-                  <div className="incidencia-riesgo">ALTO</div>
-                  <div className="incidencia-estado">En Revisión</div>
-                  <div className="incidencia-detalle">
-                    <div className="boton-detalle">+</div>
-                  </div>
-                </div>
-                <div className="incidencia">
-                  <div className="incidencia-nombre">
-                    Incidencia
-                  </div>
-                  <div className="incidencia-localidad">
-                    Jose C Paz
-                  </div>
-                  <div className="incidencia-riesgo">ALTO</div>
-                  <div className="incidencia-estado">En Revisión</div>
-                  <div className="incidencia-detalle">
-                    <div className="boton-detalle">+</div>
-                  </div>
-                </div>
+                {incidencias.length > 0 ? (
+                  incidencias.map(incidencia => (
+                    <Incidencia key={incidencia.id} props={incidencia} />
+                  ))
+                ) : (
+                  <p>No hay incidencias disponibles</p>
+                )}
               </div>
             </div>
 

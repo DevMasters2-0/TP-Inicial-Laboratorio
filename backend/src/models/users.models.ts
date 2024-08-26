@@ -1,30 +1,52 @@
+export enum Role {
+  ADMIN = 'Admin',
+}
+
 export interface User {
-    id: number;
-    name: string;
-    email: string;
-    password: string;
-  }
-  
+  id: number;
+  username: string;
+  password: string;
+  nombre: string;
+  apellido: string;
+  imagenDePerfil: string; // URL o ruta de la imagen de perfil
+  fechaDeCreacion: Date; // Fecha de creación, se genera automáticamente
+  role: Role; // Campo para el rol del usuario
+}
+
+    
   const users: Array<User> = [
     {
       id: 1,
-      name: 'John Doe',
-      email: 'john.doe@test.com',
+      username: 'johndoe',
       password: '123456',
+      nombre: 'John',
+      apellido: 'Doe',
+      imagenDePerfil: 'https://example.com/profile/johndoe.jpg', // URL de ejemplo
+      fechaDeCreacion: new Date(), // Fecha de creación actual
+      role: Role.ADMIN, // Rol del usuario
     },
     {
       id: 2,
-      name: 'Jane Doe',
-      email: 'jane.doe@test.com',
+      username: 'janedoe',
       password: 'secret',
+      nombre: 'Jane',
+      apellido: 'Doe',
+      imagenDePerfil: 'https://example.com/profile/janedoe.jpg', // URL de ejemplo
+      fechaDeCreacion: new Date(), // Fecha de creación actual
+      role: Role.ADMIN, // Rol del usuario
     },
     {
       id: 3,
-      name: 'Jack Doe',
-      email: 'jack.doe@test.com',
+      username: 'jackdoe',
       password: 'password',
+      nombre: 'Jack',
+      apellido: 'Doe',
+      imagenDePerfil: 'https://example.com/profile/jackdoe.jpg', // URL de ejemplo
+      fechaDeCreacion: new Date(), // Fecha de creación actual
+      role: Role.ADMIN, // Rol del usuario
     },
   ];
+  
   
   export const getUsers = (): Array<User> => {
     return users;
