@@ -7,6 +7,8 @@
     width: 100vw;
     background-color: black;
     position: relative;
+    align-items: center; /* Centra horizontalmente el contenido */
+    justify-content: center; /* Centra verticalmente el contenido */
   }
   
   .webcam {
@@ -14,14 +16,14 @@
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh; 
-    object-fit: cover; 
+    height: 100vh; /* Asegura que la cámara ocupe toda la altura */
+    object-fit: cover; /* Ajusta la imagen para que cubra todo el área sin deformarse */
   }
   
   .btn {
     font-weight: bold;
-    padding: 0.5rem 1rem; 
-    border-radius: 0.5rem; 
+    padding: 0.5rem 1rem; /* py-2 px-4 */
+    border-radius: 0.5rem; /* rounded-full */
     cursor: pointer;
     color: white;
     position: absolute;
@@ -30,32 +32,42 @@
   }
   
   .btn-capture {
-    background-color: #222d3e; 
+    background-color: #222d3e; /* bg-blue-500 */
     bottom: 1rem;
     right: 1rem;
+    position: fixed;
     padding: 1rem;
   }
   
   .btn-capture:hover {
-    background-color: #1d4ed8;
+    background-color: #1d4ed8; /* hover:bg-blue-700 */
   }
   
   .btn-close {
-    background-color: #f87171; 
+    background-color: #f87171; /* bg-red-400 */
     top: 1rem;
     right: 1rem;
   }
   
   .btn-close:hover {
-    background-color: #dc2626; 
+    background-color: #dc2626; /* hover:bg-red-600 */
+  }
+  
+  .image-container {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    width: 100%;
+    height: 100vh; 
+    position: absolute; 
+    top: 0;
+    left: 0;
   }
   
   .captured-image {
     width: 100%;
-    max-height: 100vh;
-  }
-  
-  .hidden {
-    display: none;
+    height: 100vh;
+    object-fit: cover; 
+    background-color: red; 
   }
   
