@@ -94,7 +94,7 @@
 }
 
 .toggle-camara-btn.abierta {
-  position: absolute;
+  position: fixed;
   left: 1rem;
   bottom: 1rem;
   z-index: 1;

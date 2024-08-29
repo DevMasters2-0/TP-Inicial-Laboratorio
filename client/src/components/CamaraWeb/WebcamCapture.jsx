@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
 import Webcam from "react-webcam";
-import "./webcamcapture.css"; // Asegúrate de importar el archivo CSS
+import "./webcamcapture.css"; 
 
 const videoConstraints = {
   width: window.innerWidth,
   height: window.innerHeight,
-  facingMode: "user",
+  facingMode: "environment",
 };
 
 const WebcamCapture = () => {
