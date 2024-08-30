@@ -13,12 +13,10 @@ router.get('/', getIncidenciasController);
 router.get('/:id', getIncidenciaByIdController);
 router.post(
   '/', 
-  validateIncidencia, 
   createIncidenciaController 
 );
 router.put(
   '/:id', 
-  validateIncidencia,
   updateIncidenciaController
 );
 router.delete('/:id', deleteIncidenciaController);
