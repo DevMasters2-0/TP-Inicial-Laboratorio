@@ -3,33 +3,28 @@ import './App.css';
 import WebcamCapture from './components/CamaraWeb/WebcamCapture';
 
 function App() {
-  const [userLocation, setUserLocation] = useState(null);
+  const [userLocation, setUserLocation] = useState({});
 
   const getUserLocation = () => {
-    // if geolocation is supported by the users browser
     if (navigator.geolocation) {
-      // get the current users location
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          // save the geolocation coordinates in two variables
           const { latitude, longitude } = position.coords;
-          // update the value of userlocation variable
-          setUserLocation({ latitude, longitude });
+          setUserLocation({latitud: latitude,longitud: longitude });
         },
-        // if there was an error getting the users location
         (error) => {
           console.error('Error getting user location:', error);
         }
       );
     }
-    // if geolocation is not supported by the users browser
     else {
       console.error('Geolocation is not supported by this browser.');
     }
   };
 
   const [formData, setFormData] = useState({
-    name: '',
+    id: null,
+    nombre: '',
     dni: '',
     email: '',
     localidad: '',
@@ -47,10 +42,34 @@ function App() {
   };
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
+    getUserLocation();
+    setFormData({
+      ...formData,
+      ['ubicacion']: userLocation,
+    });
     console.log('Form submitted:', formData);
+
+    try {
+      const response = await fetch(`http://${import.meta.env.VITE_IP}/incidencias`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const result = await response.json();
+      
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+  
   };
 
   const [viewCamara, setViewCamara] = useState(false);

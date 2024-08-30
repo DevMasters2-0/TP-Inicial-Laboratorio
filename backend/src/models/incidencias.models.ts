@@ -6,7 +6,7 @@ export interface Incidencia {
     dni: string;
     email: string;
     tema: Tema;
-    nivelDeRiesgo: NivelDeRiesgo;
+    nivelDeRiesgo: NivelDeRiesgo | string;
     localidad: Localidad;
     descripcion: string;
     fechaDeCreacion: Date;
@@ -14,7 +14,7 @@ export interface Incidencia {
       latitud: number;
       longitud: number;
     };
-    estado: Estado; 
+    estado: Estado ; 
   }
 
 
@@ -67,10 +67,23 @@ const incidencias: Array<Incidencia> = [
     },
     estado: Estado.ANULADO, // Valor para el estado
   },
-];
-
-
-    
+  {
+    id: 4,
+    nombre: 'Ana Fernández',
+    dni: '23456789B',
+    email: 'ana.fernandez@ungs.edu.ar',
+    tema: Tema.PISO_ROTO, // Valor para el tema relacionado con la plataforma e-learning
+    nivelDeRiesgo: NivelDeRiesgo.MODERADO, // Se considera alto debido al impacto en la educación
+    localidad: Localidad.POLVORINES, 
+    descripcion: 'Varios estudiantes y docentes están experimentando tiempos de carga excesivos y errores al intentar acceder a los recursos educativos en la plataforma de e-learning.',
+    fechaDeCreacion: new Date(),
+    ubicacion: {
+      latitud: -34.5898, 
+      longitud: -58.4444,
+    },
+    estado: Estado.EN_REVISION, // Valor para el estado actual de la incidencia
+  }
+];  
   
   export const getIncidencias = (): Array<Incidencia> => {
     return incidencias;
