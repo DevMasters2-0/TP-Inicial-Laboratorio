@@ -7,7 +7,7 @@
   "scripts": {
     "build": "npx tsc -p .",
     "start": "node .",
-    "dev": "npx nodemon src/app.ts",
+    "dev": "npx tsx src/app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

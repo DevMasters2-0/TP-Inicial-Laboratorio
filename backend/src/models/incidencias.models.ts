@@ -1,4 +1,5 @@
 import { Estado, Localidad, NivelDeRiesgo, Tema } from "./estados.models";
+import db from '../database/connection';
 
 export interface Incidencia {
     id: number;
@@ -85,9 +86,14 @@ const incidencias: Array<Incidencia> = [
   }
 ];  
   
-  export const getIncidencias = (): Array<Incidencia> => {
-    return incidencias;
+  export const getIncidencias = async (): Promise<Array<Incidencia>> => {
+    let result = await db.getIncidencias();
+    return result;
   };
+
+  export const getIncidenciasV2 = (): Array<Incidencia> =>{
+    return incidencias;
+  }
   
   export const getIncidenciaById = (id: number): Incidencia | undefined => {
     return incidencias.find(incidencia => incidencia.id === id);

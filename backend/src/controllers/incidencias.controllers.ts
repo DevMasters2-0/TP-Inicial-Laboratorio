@@ -2,15 +2,17 @@ import { Request, Response } from 'express';
 import {
     Incidencia,
     getIncidencias,
+    getIncidenciasV2,
     getIncidenciaById,
     createIncidencia,
     updateIncidencia,
     deleteIncidencia
 } from '../models/incidencias.models';
 import { Estado, Localidad, NivelDeRiesgo, Tema } from '../models/estados.models';
+import db from '../database/connection';
 
-export const getIncidenciasController = (req: Request, res: Response): void => {
-    const Incidencias: Incidencia[] = getIncidencias();
+export const getIncidenciasController = async (req: Request, res: Response): Promise<void> => {
+    const Incidencias: Incidencia[] = await db.getIncidencias();
     res.status(200).json({ Incidencias });
 };
 
@@ -78,28 +80,28 @@ export const getEstadosController = (req: Request, res: Response): void => {
 // Filtros
 export const getIncidenciasByTemaController = (req: Request, res: Response): void => {
     const tema = req.params.tema as Tema;
-    const incidencias: Incidencia[] = getIncidencias();
+    const incidencias: Incidencia[] = getIncidenciasV2();
     const filteredIncidencias = incidencias.filter(inc => inc.tema === tema);
     res.status(200).json({ incidencias: filteredIncidencias });
   };
 
 export const getIncidenciasByRiesgoController = (req: Request, res: Response): void => {
     const nivelDeRiesgo = req.params.nivelDeRiesgo as NivelDeRiesgo;
-    const incidencias: Incidencia[] = getIncidencias();
+    const incidencias: Incidencia[] = getIncidenciasV2();
     const filteredIncidencias = incidencias.filter(inc => inc.nivelDeRiesgo === nivelDeRiesgo);
     res.status(200).json({ incidencias: filteredIncidencias });
   };
 
 export const getIncidenciasByLocalidadController = (req: Request, res: Response): void => {
     const localidad = req.params.localidad as Localidad;
-    const incidencias: Incidencia[] = getIncidencias();
+    const incidencias: Incidencia[] = getIncidenciasV2();
     const filteredIncidencias = incidencias.filter(inc => inc.localidad === localidad);
     res.status(200).json({ incidencias: filteredIncidencias });
   };
 
 export const getIncidenciasByEstadoController = (req: Request, res: Response): void => {
     const estado = req.params.estado as Estado;
-    const incidencias: Incidencia[] = getIncidencias();
+    const incidencias: Incidencia[] = getIncidenciasV2();
     const filteredIncidencias = incidencias.filter(inc => inc.estado === estado);
     res.status(200).json({ incidencias: filteredIncidencias });
   };
