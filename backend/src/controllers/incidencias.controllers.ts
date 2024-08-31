@@ -6,7 +6,8 @@ import {
     getIncidenciaById,
     createIncidencia,
     updateIncidencia,
-    deleteIncidencia
+    deleteIncidencia,
+    getIncidenciaByIdV2
 } from '../models/incidencias.models';
 import { Estado, Localidad, NivelDeRiesgo, Tema } from '../models/estados.models';
 import db from '../database/connection';
@@ -16,9 +17,9 @@ export const getIncidenciasController = async (req: Request, res: Response): Pro
     res.status(200).json({ Incidencias });
 };
 
-export const getIncidenciaByIdController = (req: Request, res: Response): void => {
+export const getIncidenciaByIdController = async (req: Request, res: Response): Promise<void> => {
     const id: number = parseInt(req.params.id, 10);
-    const Incidencia: Incidencia | undefined = getIncidenciaById(id);
+    const Incidencia: Incidencia | undefined = await getIncidenciaById(id);
     if (Incidencia) {
         res.status(200).json({ Incidencia });
     } else {

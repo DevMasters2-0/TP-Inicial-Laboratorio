@@ -58,7 +58,20 @@ class DatabaseWrapper {
   }
   
 
+  async getIncidenciaById(id: number):Promise<Incidencia>{
+    return new Promise<Incidencia>((resolve, reject) => {
+      
+      this.db.get("SELECT * FROM incidencia WHERE incidencia_id == :id", { ':id': id }, (err: Error, row: Incidencia) => {
+        
+        if (err) {
+          reject(err);
+        }else{
+          resolve(row);
+        }
 
+      });
+    })
+  }
 
   close(){
     this.db.close();

@@ -95,7 +95,11 @@ const incidencias: Array<Incidencia> = [
     return incidencias;
   }
   
-  export const getIncidenciaById = (id: number): Incidencia | undefined => {
+  export const  getIncidenciaById = async (id: number): Promise<Incidencia | undefined> => {
+    return db.getIncidenciaById(id);
+  };
+
+  export const getIncidenciaByIdV2 = (id: number): Incidencia | undefined => {
     return incidencias.find(incidencia => incidencia.id === id);
   };
   
