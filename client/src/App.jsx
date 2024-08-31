@@ -2,35 +2,39 @@ import React, { useState } from 'react';
 import './App.css';
 import WebcamCapture from './components/CamaraWeb/WebcamCapture';
 
+// Componente principal
 function App() {
-  const [userLocation, setUserLocation] = useState({});
+  const [userLocation, setUserLocation] = useState(null);
 
   const getUserLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          setUserLocation({latitud: latitude,longitud: longitude });
-        },
-        (error) => {
-          console.error('Error getting user location:', error);
-        }
-      );
-    }
-    else {
-      console.error('Geolocation is not supported by this browser.');
-    }
+    return new Promise((resolve, reject) => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            resolve({ latitud: latitude, longitud: longitude });
+          },
+          (error) => {
+            console.error('Error getting user location:', error);
+            reject(null);
+          }
+        );
+      } else {
+        console.error('Geolocation is not supported by this browser.');
+        reject(null);
+      }
+    });
   };
 
   const [formData, setFormData] = useState({
-    id: null,
     nombre: '',
     dni: '',
     email: '',
     localidad: '',
     tema: '',
-    riesgo: '',
+    nivelDeRiesgo: '',
     descripcion: '',
+    ubicacion: { latitud: 0, longitud: 0 },
   });
 
   const handleChange = (e) => {
@@ -41,17 +45,18 @@ function App() {
     });
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    getUserLocation();
-    setFormData({
-      ...formData,
-      ['ubicacion']: userLocation,
-    });
-    console.log('Form submitted:', formData);
-
     try {
+      const locacion = await getUserLocation();
+      if (locacion) {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          ubicacion: locacion,
+        }));
+      }
+      console.log('Form submitted:', formData);
+
       const response = await fetch(`http://${import.meta.env.VITE_IP}/incidencias`, {
         method: 'POST',
         headers: {
@@ -65,20 +70,19 @@ function App() {
       }
 
       const result = await response.json();
-      
+      console.log('Response:', result);
+
     } catch (error) {
       console.error('Error submitting form:', error);
     }
-  
   };
 
   const [viewCamara, setViewCamara] = useState(false);
 
   const handleToggleCamara = () => {
     setViewCamara(!viewCamara);
-  }
+  };
 
-  // return an HTML page for the user to check their location
   return (
     <main className="main">
       <h1>Neighborhood Management System (NMS)</h1>
@@ -102,43 +106,28 @@ function App() {
         </p>
       </div>
 
-
-      {/**
-       <button onClick={getUserLocation}>Get Location</button>
-      
-       {userLocation && (
-         <div>
-           <h2>User Location</h2>
-           <p>Latitude: {userLocation.latitude}</p>
-           <p>Longitude: {userLocation.longitude}</p>
-         </div>
-       )}
-       */}
-
-      {/** Capturar la Imagen */}
-      {viewCamara ?
-        <div className='camara-container'
-        >
+      {viewCamara ? (
+        <div className='camara-container'>
           <WebcamCapture />
           <button className="toggle-camara-btn abierta" onClick={handleToggleCamara}>
             Cerrar Camara
           </button>
-        </div> :
+        </div>
+      ) : (
         <button className="toggle-camara-btn" onClick={handleToggleCamara}>
           Sacar una Foto
         </button>
-      }
+      )}
 
-      {/** Formulario */}
       <div className='form-container'>
         <form onSubmit={handleSubmit} className='form'>
           <div className='form-group'>
-            <label htmlFor='name'>Nombre</label>
+            <label htmlFor='nombre'>Nombre</label>
             <input
               type='text'
-              id='name'
-              name='name'
-              value={formData.name}
+              id='nombre'
+              name='nombre'
+              value={formData.nombre}
               onChange={handleChange}
               required
             />
@@ -146,16 +135,16 @@ function App() {
           <div className='form-group'>
             <label htmlFor='dni'>DNI</label>
             <input
-              type='text'
+              type='number'
               id='dni'
               name='dni'
-              value={formData.neighborhoodName}
+              value={formData.dni}
               onChange={handleChange}
               required
             />
           </div>
           <div className='form-group'>
-            <label htmlFor='neighborhoodName'>Email</label>
+            <label htmlFor='email'>Email</label>
             <input
               type='email'
               id='email'
@@ -188,12 +177,12 @@ function App() {
             />
           </div>
           <div className='form-group'>
-            <label htmlFor='tema'>Riesgo</label>
+            <label htmlFor='nivelDeRiesgo'>Riesgo</label>
             <input
               type='text'
-              id='riesgo'
-              name='riesgo'
-              value={formData.riesgo}
+              id='nivelDeRiesgo'
+              name='nivelDeRiesgo'
+              value={formData.nivelDeRiesgo}
               onChange={handleChange}
               required
             />
@@ -212,7 +201,6 @@ function App() {
           <button type='submit' className='submit-button'>Submit</button>
         </form>
       </div>
-
     </main>
   );
 }

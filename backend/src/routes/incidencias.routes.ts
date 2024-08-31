@@ -24,14 +24,12 @@ router.get('/estados/:estado', getIncidenciasByEstadoController);
 router.get('/', getIncidenciasController)
 router.post(
   '/', 
-  validateIncidencia, 
   createIncidenciaController 
 );
 router.delete('/', deleteIncidenciaController);
 router.get('/:id', getIncidenciaByIdController);
 router.put(
   '/:id', 
-  validateIncidencia,
   updateIncidenciaController
 );
 

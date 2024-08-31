@@ -5,7 +5,7 @@ import axios from 'axios';
 import Incidencia from './components/Incidencia/Incidencia';
 
 function App() {
-  const [mapView, setMapView] = React.useState(false);
+  const [mapView, setMapView] = React.useState(true);
 
   const handleChange = (flag) => {
     return () => setMapView(flag);
@@ -45,7 +45,7 @@ function App() {
         <div className="content">
           {mapView ? (
             <div className="map-container">
-              <MapComponent />
+              <MapComponent puntos={incidencias}/>
             </div>
           ) : (
             <div className="incidencias-container">
