@@ -15,7 +15,7 @@ export interface Incidencia {
       longitud: number;
     };
     estado: Estado ; 
-  }
+}
 
 
 const incidencias: Array<Incidencia> = [
