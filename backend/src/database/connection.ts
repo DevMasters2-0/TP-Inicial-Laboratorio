@@ -97,6 +97,18 @@ class DatabaseWrapper {
 
   }
 
+  deleteIncidenciaById(id: number){
+
+    this.db.run("DELETE FROM incidencia WHERE incidencia.incidencia_id == :id", { ':id': id }, (err:Error) =>{
+      if (err) {
+        console.error("Error al borrar la incidencia", err);
+      }
+      else{
+        console.log("Incidencia eliminada con exito");
+      }
+    });
+  }
+
   close(){
     this.db.close();
   }

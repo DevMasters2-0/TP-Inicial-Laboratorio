@@ -51,7 +51,7 @@ export const updateIncidenciaController = (req: Request, res: Response): void =>
 
 export const deleteIncidenciaController = (req: Request, res: Response): void => {
     const id: number = parseInt(req.params.id, 10);
-    deleteIncidencia(id);
+    db.deleteIncidenciaById(id);
     res.status(200).json({
         message: `Incidencia ${id} deleted`,
     });
