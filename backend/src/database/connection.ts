@@ -14,7 +14,7 @@ class DatabaseWrapper {
 
   constructor() {
 
-    this.db = new sqlite3.Database(':memory:', (err) => {
+    this.db = new sqlite3.Database('mydatabase.sqlite', (err) => {
       if (err) {
         console.error('Error al crear la base de datos:', err.message);
       } else {
@@ -27,6 +27,16 @@ class DatabaseWrapper {
   init() {
     const sql = readFileSync('src/database/database.sql', 'utf8');
 
+    this.db.run("PRAGMA foreign_keys = ON;", (err:Error) =>{
+      if (err) {
+        console.error("FK's no habilitadas");
+      }
+      else{
+        console.log("FK's habilitadas");
+      }
+
+    });
+
     this.db.exec(sql, (err) => {
       if (err) {
         console.error('Error al ejecutar el archivo SQL:', err);
@@ -34,6 +44,7 @@ class DatabaseWrapper {
         console.log('Archivo SQL ejecutado con éxito.');
       }
     });
+
   }
 
   getIncidencias(): Promise<Array<Incidencia>> {
@@ -71,6 +82,19 @@ class DatabaseWrapper {
 
       });
     })
+  }
+
+  crearIncidencia(incidencia: Incidencia){
+    
+    this.db.run("INSERT INTO incidencia (incidencia_id, nombre, dni, email, tema, nivelDeRiesgo, localidad, descripcion, fechaDeCreacion, latitud, longitud, estado) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",[incidencia.id, incidencia.nombre, incidencia.dni, incidencia.email, incidencia.tema,incidencia.nivelDeRiesgo, incidencia.localidad, incidencia.descripcion, incidencia.fechaDeCreacion, null, null, incidencia.estado], 
+      function error(err:Error) {
+        if (err) {
+          console.error("Error al crear la incidencia", err);
+        }else{
+          console.log("Incidencia creada con exito")
+        }
+    });
+
   }
 
   close(){

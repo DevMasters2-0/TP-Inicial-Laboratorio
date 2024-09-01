@@ -15,8 +15,8 @@ CREATE TABLE IF NOT EXISTS incidencia (
 
 CREATE TABLE IF NOT EXISTS images (
     image_id INTEGER PRIMARY KEY,
-    incidencia_id INTEGER,
-    FOREIGN KEY (incidencia_id) REFERENCES incidencia(incidencia_id) 
+    incident_id INTEGER,
+    FOREIGN KEY (incident_id) REFERENCES incidencia(incidencia_id) 
 );
 CREATE TABLE IF NOT EXISTS administrator (
     admin_id INTEGER PRIMARY KEY,
@@ -32,13 +32,13 @@ CREATE TABLE IF NOT EXISTS registro (
 
 CREATE TABLE IF NOT EXISTS registro_incidencia (
     registro_incidencia_id INTEGER PRIMARY KEY,
-    registro_id INTEGER,
-    incidencia_id INTEGER,
-    FOREIGN KEY(registro_id) REFERENCES registro(registro_id),
-    FOREIGN KEY(incidencia_id) REFERENCES incidencia(incidencia_id)
+    register_id INTEGER,
+    incident_id INTEGER,
+    FOREIGN KEY(register_id) REFERENCES registro(registro_id),
+    FOREIGN KEY(incident_id) REFERENCES incidencia(incidencia_id)
 );
 
-INSERT INTO incidencia (incidencia_id, nombre, dni, email, tema, nivelDeRiesgo, localidad, descripcion, fechaDeCreacion, latitud, longitud, estado) VALUES
+INSERT OR IGNORE INTO incidencia (incidencia_id, nombre, dni, email, tema, nivelDeRiesgo, localidad, descripcion, fechaDeCreacion, latitud, longitud, estado) VALUES
 (1, 'David cañete', '12345678A', 'juan.perez@test.com', 'piso roto', 'moderado', 'San Miguel', 'El piso de la cocina está roto y necesita reparación.', '2024-08-31T00:00:00Z', -34.5898, -58.4444, 'En Revisión'),
 (2, 'German Lucero','87654321B', 'ana.gomez@test.com', 'calle', 'bajo', 'Polvorines', 'La calle necesita limpieza.', '2024-08-31T00:00:00Z', -34.5900, -58.4450, 'Completado'),
 (3, 'Francisco Gottig','13579246C', 'luis.fernandez@test.com', 'alumbrado', 'urgente', 'Jose C Paz', 'El alumbrado público no funciona en la calle principal.', '2024-08-31T00:00:00Z', -34.5902, -58.4460, 'Anulado'),

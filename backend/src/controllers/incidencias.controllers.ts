@@ -29,11 +29,13 @@ export const getIncidenciaByIdController = async (req: Request, res: Response): 
 
 export const createIncidenciaController = (req: Request, res: Response): void => {
     const Incidencia: Incidencia = req.body;
-    createIncidencia(Incidencia);
+    //createIncidencia(Incidencia);
+    db.crearIncidencia(Incidencia);
     res.status(201).json({
         message: 'Incidencia created',
         Incidencia,
     });
+    
 };
 
 export const updateIncidenciaController = (req: Request, res: Response): void => {
