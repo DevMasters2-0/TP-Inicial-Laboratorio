@@ -42,7 +42,7 @@ export const updateIncidenciaController = (req: Request, res: Response): void =>
     const id: number = parseInt(req.params.id, 10);
     const IncidenciaUpdate: Incidencia = req.body;
     IncidenciaUpdate.id = id;
-    updateIncidencia(IncidenciaUpdate);
+    db.updateIncidenciaById(id, IncidenciaUpdate)
     res.status(200).json({
         message: 'Incidencia updated',
         Incidencia: IncidenciaUpdate,

@@ -3,7 +3,7 @@ import { createIncidenciaController, deleteIncidenciaController, getEstadosContr
     getIncidenciaByIdController, getIncidenciasByEstadoController, getIncidenciasByLocalidadController,
     getIncidenciasByRiesgoController, getIncidenciasByTemaController, getIncidenciasController, getLocalidadesController, 
     getNivelesDeRiesgoController, getTemasController, updateIncidenciaController } from '../controllers/incidencias.controllers';
-import { validateIncidencia } from '../utils/validations/incidencias.validations';
+import { validateIncidencia,  validateUpdateIncidencia } from '../utils/validations/incidencias.validations';
 
 // New Router instance
 const router = Router();
@@ -22,16 +22,18 @@ router.get('/estados/:estado', getIncidenciasByEstadoController);
 
 // Incidencias routes
 router.get('/', getIncidenciasController)
-router.post(
+router.get('/:id', getIncidenciaByIdController);
+router.delete('/:id', deleteIncidenciaController);
+
+router.post( //create
   '/', 
   validateIncidencia, 
   createIncidenciaController 
 );
-router.delete('/:id', deleteIncidenciaController);
-router.get('/:id', getIncidenciaByIdController);
-router.put(
+
+router.put( //update
   '/:id', 
-  validateIncidencia,
+  validateUpdateIncidencia,
   updateIncidenciaController
 );
 

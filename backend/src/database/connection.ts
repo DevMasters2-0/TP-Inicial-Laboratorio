@@ -109,6 +109,16 @@ class DatabaseWrapper {
     });
   }
 
+  async updateIncidenciaById(id:number, incidencia:Incidencia){
+    this.db.run("UPDATE incidencia SET tema = $tema, estado = $estado  WHERE incidencia_id = $id", {$tema: incidencia.tema, $estado: incidencia.estado, $id: incidencia.id}, (err:Error) => {
+      if (err) {
+        console.error("Error al hacer el update de la incidencia", err);
+      }
+      else{
+        console.log("Incidencia mejorada con exito");
+      }
+    });
+  }
   close(){
     this.db.close();
   }
