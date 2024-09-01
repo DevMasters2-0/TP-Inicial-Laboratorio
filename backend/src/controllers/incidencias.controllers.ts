@@ -7,7 +7,8 @@ import {
     createIncidencia,
     updateIncidencia,
     deleteIncidencia,
-    getIncidenciaByIdV2
+    getIncidenciaByIdV2,
+    IncidenciaCreateDTO
 } from '../models/incidencias.models';
 import { Estado, Localidad, NivelDeRiesgo, Tema } from '../models/estados.models';
 import db from '../database/connection';
@@ -31,9 +32,11 @@ export const getIncidenciaByIdController = async (req: Request, res: Response): 
 export const createIncidenciaController = (req: Request, res: Response): void => {
     const Incidencia: Incidencia = req.body;
     db.crearIncidencia(Incidencia);
+    const incidencia: IncidenciaCreateDTO = req.body;
+    const incidenciaCreated: Incidencia = createIncidencia(incidencia);
     res.status(201).json({
         message: 'Incidencia created',
-        Incidencia,
+        incidenciaCreated,
     });
     
 };

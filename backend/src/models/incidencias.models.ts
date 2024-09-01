@@ -1,21 +1,38 @@
 import { Estado, Localidad, NivelDeRiesgo, Tema } from "./estados.models";
 import db from '../database/connection';
 
-export interface Incidencia {
+type Ubicacion = {
+  latitud: number,
+  longitud: number
+}
+
+
+export interface IncidenciaCreateDTO {
+  nombre: string;
+  dni: string;
+  email: string;
+  tema: string;
+  nivelDeRiesgo: string;
+  localidad: string;
+  ubicacion: Ubicacion;
+  descripcion: string;
+}
+
+export interface Incidencia extends IncidenciaCreateDTO {
     id: number;
     nombre: string;
     dni: string;
     email: string;
-    tema: Tema;
+    tema: Tema | string;
     nivelDeRiesgo: NivelDeRiesgo | string;
-    localidad: Localidad;
+    localidad: Localidad | string;
     descripcion: string;
-    fechaDeCreacion: Date;
+    fechaDeCreacion: Date | null;
     ubicacion: {
       latitud: number;
       longitud: number;
-    };
-    estado: Estado ; 
+    };  
+    estado: Estado; 
 }
 
 
@@ -23,7 +40,7 @@ const incidencias: Array<Incidencia> = [
   {
     id: 1,
     nombre: 'Juan Pérez',
-    dni: '12345678A',
+    dni: '12345678',
     email: 'juan.perez@test.com',
     tema: Tema.PISO_ROTO,
     nivelDeRiesgo: NivelDeRiesgo.MODERADO,
@@ -39,7 +56,7 @@ const incidencias: Array<Incidencia> = [
   {
     id: 2,
     nombre: 'Ana Gómez',
-    dni: '87654321B',
+    dni: '87654321',
     email: 'ana.gomez@test.com',
     tema: Tema.CALLE,
     nivelDeRiesgo: NivelDeRiesgo.BAJO,
@@ -55,7 +72,7 @@ const incidencias: Array<Incidencia> = [
   {
     id: 3,
     nombre: 'Luis Fernández',
-    dni: '13579246C',
+    dni: '13579246',
     email: 'luis.fernandez@test.com',
     tema: Tema.ALUMBRADO,
     nivelDeRiesgo: NivelDeRiesgo.URGENTE,
@@ -71,7 +88,7 @@ const incidencias: Array<Incidencia> = [
   {
     id: 4,
     nombre: 'Ana Fernández',
-    dni: '23456789B',
+    dni: '23456789',
     email: 'ana.fernandez@ungs.edu.ar',
     tema: Tema.PISO_ROTO, // Valor para el tema relacionado con la plataforma e-learning
     nivelDeRiesgo: NivelDeRiesgo.MODERADO, // Se considera alto debido al impacto en la educación
@@ -103,8 +120,15 @@ const incidencias: Array<Incidencia> = [
     return incidencias.find(incidencia => incidencia.id === id);
   };
   
-  export const createIncidencia = (incidencia: Incidencia): void => {
-    incidencias.push(incidencia);
+  export const createIncidencia = (incidencia: IncidenciaCreateDTO): Incidencia => {
+    const incidenciaCreated: Incidencia = {
+      ...incidencia,
+      id: 10, 
+      fechaDeCreacion: new Date(),
+      estado: Estado.EN_REVISION,
+    };
+    incidencias.push(incidenciaCreated);
+    return incidenciaCreated;
   };
   
   export const updateIncidencia = (incidencia: Incidencia): void => {

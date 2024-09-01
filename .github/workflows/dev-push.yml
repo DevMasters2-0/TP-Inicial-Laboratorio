@@ -1,0 +1,58 @@
+name: Construir imagenes de docker y subir a GCR
+
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  build:
+    runs-on: potus
+
+    steps:
+      # Paso 1: Checkout del repositorio
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Paso 2: Configurar Docker
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Paso 3: Autenticar en GitHub Container Registry
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      ## Backend
+      # Paso 4: Construir la imagen Docker especificando el subdirectorio del Dockerfile
+      - name: Build Docker image
+        run: docker build -t ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-server:latest ./backend
+
+      # Paso 5: Subir la imagen al GitHub Container Registry
+      - name: Push Docker image to GitHub Container Registry
+        run: docker push ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-server:latest
+
+
+      ## Admin-Frontend
+      # Paso 6: Construir la imagen Docker especificando el subdirectorio del Dockerfile
+      - name: Build Docker image
+        run: docker build -t ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-admin:latest ./admin
+
+      # Paso 7: Subir la imagen al GitHub Container Registry
+      - name: Push Docker image to GitHub Container Registry
+        run: docker push ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-admin:latest
+
+
+      ## User-Frontend
+      # Paso 8: Construir la imagen Docker especificando el subdirectorio del Dockerfile
+      - name: Build Docker image
+        run: docker build -t ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-client:latest ./client
+
+      # Paso 9: Subir la imagen al GitHub Container Registry
+      - name: Push Docker image to GitHub Container Registry
+        run: docker push ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-client:latest
+
+     
