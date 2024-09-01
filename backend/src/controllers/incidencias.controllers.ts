@@ -60,6 +60,20 @@ export const deleteIncidenciaController = (req: Request, res: Response): void =>
     });
 };
 
+export async function getIncidenciasByFecha(req: Request, res: Response){
+    
+    let fecha = req.params.fecha;
+    let incidencias: Incidencia[] = await db.obtenerIncidenciasPorFecha(fecha);
+
+    if (incidencias.length === 0){
+        res.status(204).send(); //no content
+    }
+    else {
+        res.status(200).json({ incidencias });
+    } 
+
+};
+
 // *** Envio de enums ***
 
 export const getTemasController = (req: Request, res: Response): void => {
