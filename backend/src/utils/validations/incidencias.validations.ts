@@ -3,7 +3,50 @@ import {
     Response,
     NextFunction
   } from 'express';
+
+import { Estado, Tema } from "../../models/estados.models";
+
+  export const validateUpdateIncidencia= (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+
+    const {
+      tema,
+      estado
+    } = req.body;
+
+    const errors = [];
+
+    if (!req.params.id) {
+      errors.push('incidencia_id is required');
+    }
+
+    if (!Object.values(Tema).includes(tema)) {
+      errors.push('tema is required');
+    }
+
+    if (!Object.values(Estado).includes(estado)) {
+      errors.push('estado is required');
+    }
+
+    console.log(tema);
+    console.log(estado);
+    if (errors.length) {
+      return res.status(422).json({
+        message: 'incidencia validation failed',
+        errors,
+      });
+    }
   
+    // Pass Incincidencia_idencia data to the next mincidencia_iddleware
+    next();
+
+  }
+
+
+
   export const validateIncidencia = (
     req: Request,
     res: Response,
@@ -12,47 +55,36 @@ import {
   
     // Get data from request body
     const {
-      id,
-      name,
+      incidencia_id,
+      nombre,
       email,
-      password
     } = req.body;
   
     // Create an array to store errors
     const errors = [];
   
-    // Validate data
-    if (!id) {
-      errors.push('id is required');
+    // Valincidencia_idate data
+    if (!incidencia_id) {
+      errors.push('incidencia_id is required');
     }
   
-    if (!name) {
-      errors.push('name is required');
+    if (!nombre) {
+      errors.push('nombre is required');
     }
   
     if (!email) {
       errors.push('email is required');
     }
   
-    if (!password) {
-      errors.push('password is required');
-    } else {
-      // Add more validations here
-      // e.g. password must be at least 8 chars long
-      if (password.length < 8) {
-        errors.push('password must be at least 8 chars long');
-      }
-    }
-  
     // If there are errors
     // return 422 (Unprocessable Entity)
     if (errors.length) {
       return res.status(422).json({
-        message: 'Validation failed',
+        message: 'incidencia validation failed',
         errors,
       });
     }
   
-    // Pass Incidencia data to the next middleware
+    // Pass Incincidencia_idencia data to the next mincidencia_iddleware
     next();
   };

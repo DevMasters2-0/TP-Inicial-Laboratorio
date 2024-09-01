@@ -1,12 +1,13 @@
 {
   "name": "backend",
   "version": "1.0.0",
+  "type": "module",
   "description": "Un backend para la obra social simple",
   "main": "build/app.js",
   "scripts": {
     "build": "npx tsc -p .",
     "start": "node .",
-    "dev": "npx nodemon src/app.ts",
+    "dev": "npx tsx src/app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -18,11 +19,13 @@
   "author": "imdaviddev",
   "license": "ISC",
   "dependencies": {
+    "@types/sqlite3": "^3.1.11",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "helmet": "^7.1.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
@@ -35,6 +38,7 @@
     "nodemon": "^3.1.3",
     "ts-node": "^10.9.2",
     "tslib": "^2.6.3",
-    "typescript": "^5.4.5"
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4"
   }
 }

@@ -1,4 +1,5 @@
 import { Estado, Localidad, NivelDeRiesgo, Tema } from "./estados.models";
+import db from '../database/connection';
 
 type Ubicacion = {
   latitud: number,
@@ -8,7 +9,7 @@ type Ubicacion = {
 
 export interface IncidenciaCreateDTO {
   nombre: string;
-  dni: number;
+  dni: string;
   email: string;
   tema: string;
   nivelDeRiesgo: string;
@@ -19,7 +20,18 @@ export interface IncidenciaCreateDTO {
 
 export interface Incidencia extends IncidenciaCreateDTO {
     id: number;
+    nombre: string;
+    dni: string;
+    email: string;
+    tema: Tema | string;
+    nivelDeRiesgo: NivelDeRiesgo | string;
+    localidad: Localidad | string;
+    descripcion: string;
     fechaDeCreacion: Date | null;
+    ubicacion: {
+      latitud: number;
+      longitud: number;
+    };  
     estado: Estado; 
 }
 
@@ -28,7 +40,7 @@ const incidencias: Array<Incidencia> = [
   {
     id: 1,
     nombre: 'Juan Pérez',
-    dni: 12345678,
+    dni: '12345678',
     email: 'juan.perez@test.com',
     tema: Tema.PISO_ROTO,
     nivelDeRiesgo: NivelDeRiesgo.MODERADO,
@@ -44,7 +56,7 @@ const incidencias: Array<Incidencia> = [
   {
     id: 2,
     nombre: 'Ana Gómez',
-    dni: 87654321,
+    dni: '87654321',
     email: 'ana.gomez@test.com',
     tema: Tema.CALLE,
     nivelDeRiesgo: NivelDeRiesgo.BAJO,
@@ -60,7 +72,7 @@ const incidencias: Array<Incidencia> = [
   {
     id: 3,
     nombre: 'Luis Fernández',
-    dni: 13579246,
+    dni: '13579246',
     email: 'luis.fernandez@test.com',
     tema: Tema.ALUMBRADO,
     nivelDeRiesgo: NivelDeRiesgo.URGENTE,
@@ -76,7 +88,7 @@ const incidencias: Array<Incidencia> = [
   {
     id: 4,
     nombre: 'Ana Fernández',
-    dni: 23456789,
+    dni: '23456789',
     email: 'ana.fernandez@ungs.edu.ar',
     tema: Tema.PISO_ROTO, // Valor para el tema relacionado con la plataforma e-learning
     nivelDeRiesgo: NivelDeRiesgo.MODERADO, // Se considera alto debido al impacto en la educación
@@ -91,14 +103,16 @@ const incidencias: Array<Incidencia> = [
   }
 ];  
   
-  export const getIncidencias = (): Array<Incidencia> => {
-    return incidencias;
+  export const getIncidencias = async (): Promise<Array<Incidencia>> => {
+    let result = await db.getIncidencias();
+    return result;
   };
+
   
-  export const getIncidenciaById = (id: number): Incidencia | undefined => {
-    return incidencias.find(incidencia => incidencia.id === id);
+  export const  getIncidenciaById = async (id: number): Promise<Incidencia | undefined> => {
+    return db.getIncidenciaById(id);
   };
-  
+
   export const createIncidencia = (incidencia: IncidenciaCreateDTO): Incidencia => {
     const incidenciaCreated: Incidencia = {
       ...incidencia,

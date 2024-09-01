@@ -9,15 +9,17 @@ import {
     IncidenciaCreateDTO
 } from '../models/incidencias.models';
 import { Estado, Localidad, NivelDeRiesgo, Tema } from '../models/estados.models';
+import db from '../database/connection';
 
-export const getIncidenciasController = (req: Request, res: Response): void => {
-    const Incidencias: Incidencia[] = getIncidencias();
+// *** Manipular base de datos ***
+export const getIncidenciasController = async (req: Request, res: Response): Promise<void> => {
+    const Incidencias: Incidencia[] = await db.getIncidencias();
     res.status(200).json({ Incidencias });
 };
 
-export const getIncidenciaByIdController = (req: Request, res: Response): void => {
+export const getIncidenciaByIdController = async (req: Request, res: Response): Promise<void> => {
     const id: number = parseInt(req.params.id, 10);
-    const Incidencia: Incidencia | undefined = getIncidenciaById(id);
+    const Incidencia: Incidencia | undefined = await getIncidenciaById(id);
     if (Incidencia) {
         res.status(200).json({ Incidencia });
     } else {
@@ -26,19 +28,24 @@ export const getIncidenciaByIdController = (req: Request, res: Response): void =
 };
 
 export const createIncidenciaController = (req: Request, res: Response): void => {
+    const Incidencia: Incidencia = req.body;
+    db.crearIncidencia(Incidencia);
     const incidencia: IncidenciaCreateDTO = req.body;
     const incidenciaCreated: Incidencia = createIncidencia(incidencia);
+
+    db.crearIncidencia(incidenciaCreated);
     res.status(201).json({
         message: 'Incidencia created',
         incidenciaCreated,
     });
+    
 };
 
 export const updateIncidenciaController = (req: Request, res: Response): void => {
     const id: number = parseInt(req.params.id, 10);
     const IncidenciaUpdate: Incidencia = req.body;
     IncidenciaUpdate.id = id;
-    updateIncidencia(IncidenciaUpdate);
+    db.updateIncidenciaById(id, IncidenciaUpdate)
     res.status(200).json({
         message: 'Incidencia updated',
         Incidencia: IncidenciaUpdate,
@@ -47,7 +54,7 @@ export const updateIncidenciaController = (req: Request, res: Response): void =>
 
 export const deleteIncidenciaController = (req: Request, res: Response): void => {
     const id: number = parseInt(req.params.id, 10);
-    deleteIncidencia(id);
+    db.deleteIncidenciaById(id);
     res.status(200).json({
         message: `Incidencia ${id} deleted`,
     });
@@ -77,31 +84,52 @@ export const getEstadosController = (req: Request, res: Response): void => {
 };
 
 // Filtros
-export const getIncidenciasByTemaController = (req: Request, res: Response): void => {
+export const getIncidenciasByTemaController = async (req: Request, res: Response): Promise<void> => {
     const tema = req.params.tema as Tema;
-    const incidencias: Incidencia[] = getIncidencias();
-    const filteredIncidencias = incidencias.filter(inc => inc.tema === tema);
-    res.status(200).json({ incidencias: filteredIncidencias });
+    const incidencias: Incidencia[] = await db.getIncidenciasByTema(tema);
+   
+    if (incidencias.length === 0){
+        res.status(204).send(); //no content
+    }
+    else {
+        res.status(200).json({ incidencias });
+    } 
+   
   };
 
-export const getIncidenciasByRiesgoController = (req: Request, res: Response): void => {
+export const getIncidenciasByRiesgoController = async (req: Request, res: Response): Promise<void> => {
     const nivelDeRiesgo = req.params.nivelDeRiesgo as NivelDeRiesgo;
-    const incidencias: Incidencia[] = getIncidencias();
-    const filteredIncidencias = incidencias.filter(inc => inc.nivelDeRiesgo === nivelDeRiesgo);
-    res.status(200).json({ incidencias: filteredIncidencias });
+    const incidencias: Incidencia[] = await db.getIncidenciasByRiesgo(nivelDeRiesgo);
+   
+    if (incidencias.length === 0){
+        res.status(204).send(); //no content
+    }
+    else {
+        res.status(200).json({ incidencias });
+    } 
   };
 
-export const getIncidenciasByLocalidadController = (req: Request, res: Response): void => {
+export const getIncidenciasByLocalidadController = async (req: Request, res: Response): Promise<void> => {
     const localidad = req.params.localidad as Localidad;
-    const incidencias: Incidencia[] = getIncidencias();
-    const filteredIncidencias = incidencias.filter(inc => inc.localidad === localidad);
-    res.status(200).json({ incidencias: filteredIncidencias });
+    const incidencias: Incidencia[] = await db.getIncidenciasByLocalidad(localidad);
+   
+    if (incidencias.length === 0){
+        res.status(204).send(); //no content
+    }
+    else {
+        res.status(200).json({ incidencias });
+    } 
   };
 
-export const getIncidenciasByEstadoController = (req: Request, res: Response): void => {
+export const getIncidenciasByEstadoController = async (req: Request, res: Response): Promise<void> => {
     const estado = req.params.estado as Estado;
-    const incidencias: Incidencia[] = getIncidencias();
-    const filteredIncidencias = incidencias.filter(inc => inc.estado === estado);
-    res.status(200).json({ incidencias: filteredIncidencias });
+    const incidencias: Incidencia[] = await db.getIncidenciasByEstado(estado);
+   
+    if (incidencias.length === 0){
+        res.status(204).send(); //no content
+    }
+    else {
+        res.status(200).json({ incidencias });
+    } 
   };
 
