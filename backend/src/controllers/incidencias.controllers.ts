@@ -84,29 +84,49 @@ export const getEstadosController = (req: Request, res: Response): void => {
 export const getIncidenciasByTemaController = async (req: Request, res: Response): Promise<void> => {
     const tema = req.params.tema as Tema;
     const incidencias: Incidencia[] = await db.getIncidenciasByTema(tema);
-    //const filteredIncidencias = incidencias.filter(inc => inc.tema === tema);
-
-    res.status(200).json({ incidencias });
+   
+    if (incidencias.length === 0){
+        res.status(204).send(); //no content
+    }
+    else {
+        res.status(200).json({ incidencias });
+    } 
+   
   };
 
 export const getIncidenciasByRiesgoController = async (req: Request, res: Response): Promise<void> => {
     const nivelDeRiesgo = req.params.nivelDeRiesgo as NivelDeRiesgo;
     const incidencias: Incidencia[] = await db.getIncidenciasByRiesgo(nivelDeRiesgo);
    
-    res.status(200).json({ incidencias });
+    if (incidencias.length === 0){
+        res.status(204).send(); //no content
+    }
+    else {
+        res.status(200).json({ incidencias });
+    } 
   };
 
 export const getIncidenciasByLocalidadController = async (req: Request, res: Response): Promise<void> => {
     const localidad = req.params.localidad as Localidad;
     const incidencias: Incidencia[] = await db.getIncidenciasByLocalidad(localidad);
    
-    res.status(200).json({ incidencias });
+    if (incidencias.length === 0){
+        res.status(204).send(); //no content
+    }
+    else {
+        res.status(200).json({ incidencias });
+    } 
   };
 
 export const getIncidenciasByEstadoController = async (req: Request, res: Response): Promise<void> => {
     const estado = req.params.estado as Estado;
     const incidencias: Incidencia[] = await db.getIncidenciasByEstado(estado);
    
-    res.status(200).json({ incidencias});
+    if (incidencias.length === 0){
+        res.status(204).send(); //no content
+    }
+    else {
+        res.status(200).json({ incidencias });
+    } 
   };
 
