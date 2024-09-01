@@ -57,7 +57,7 @@ jobs:
 
       # Paso 10: Desplegar en la nube de PWS
       - name: Desplegar en PWS
-        uses: hoverkraft-tech/compose-action@v0.0.0
+        uses: hoverkraft-tech/compose-action@v2.0.1
         with:
           # Description: Relative path to compose file(s). It can be a list of files.
           #
