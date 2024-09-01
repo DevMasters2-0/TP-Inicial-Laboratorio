@@ -130,7 +130,7 @@ class DatabaseWrapper {
           reject(err);
         }
         else {
-          console.log("Incidencia obtenidas con exito");
+          console.log("Incidencias obtenidas con exito");
           resolve(rows);
         }
         
@@ -138,9 +138,67 @@ class DatabaseWrapper {
 
     });
 
-   
   }
 
+  async getIncidenciasByRiesgo(riesgo:string): Promise<Array<Incidencia>>{
+
+    return new Promise<Array<Incidencia>>((resolve, reject) => {
+      this.db.all("SELECT * from incidencia WHERE nivelDeRiesgo = ?", riesgo, (err: Error, rows: Array<Incidencia>) => {
+        if (err) {
+          console.error("Error al obtener las incidencias por riesgo", err);
+          reject(err);
+        }
+        else {
+          console.log("Incidencias obtenidas con exito");
+          resolve(rows);
+        }
+        
+      });
+
+    });
+
+  }
+
+  async getIncidenciasByLocalidad(localidad:string): Promise<Array<Incidencia>>{
+
+    return new Promise<Array<Incidencia>>((resolve, reject) => {
+      this.db.all("SELECT * from incidencia WHERE localidad = ?", localidad, (err: Error, rows: Array<Incidencia>) => {
+        if (err) {
+          console.error("Error al obtener las incidencias por localidad", err);
+          reject(err);
+        }
+        else {
+          console.log("Incidencias obtenidas con exito");
+          resolve(rows);
+        }
+        
+      });
+
+    });
+
+  }
+
+  async getIncidenciasByEstado(estado:string): Promise<Array<Incidencia>>{
+
+    return new Promise<Array<Incidencia>>((resolve, reject) => {
+      this.db.all("SELECT * from incidencia WHERE estado = ?", estado, (err: Error, rows: Array<Incidencia>) => {
+        if (err) {
+          console.error("Error al obtener las incidencias por estado", err);
+          reject(err);
+        }
+        else {
+          console.log("Incidencias obtenidas con exito");
+          resolve(rows);
+        }
+        
+      });
+
+    });
+
+  }
+  
+  
+  //estado
 
   close(){
     this.db.close();
