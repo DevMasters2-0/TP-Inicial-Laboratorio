@@ -2,12 +2,10 @@ import { Request, Response } from 'express';
 import {
     Incidencia,
     getIncidencias,
-    getIncidenciasV2,
     getIncidenciaById,
     createIncidencia,
     updateIncidencia,
     deleteIncidencia,
-    getIncidenciaByIdV2,
     IncidenciaCreateDTO
 } from '../models/incidencias.models';
 import { Estado, Localidad, NivelDeRiesgo, Tema } from '../models/estados.models';
@@ -34,6 +32,8 @@ export const createIncidenciaController = (req: Request, res: Response): void =>
     db.crearIncidencia(Incidencia);
     const incidencia: IncidenciaCreateDTO = req.body;
     const incidenciaCreated: Incidencia = createIncidencia(incidencia);
+
+    db.crearIncidencia(incidenciaCreated);
     res.status(201).json({
         message: 'Incidencia created',
         incidenciaCreated,
