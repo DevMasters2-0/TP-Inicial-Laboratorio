@@ -55,4 +55,12 @@ jobs:
       - name: Push Docker image to GitHub Container Registry
         run: docker push ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-client:latest
 
+      # Paso 10: Desplegar en la nube de PWS
+      - name: Desplegar en PWS
+      - uses: hoverkraft-tech/compose-action@v0.0.0
+        with:
+          # Description: Relative path to compose file(s). It can be a list of files.
+          #
+          # Default: ./docker-compose.yml
+          compose-file: "./docker-compose-dev.yml"
      
