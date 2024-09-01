@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: neo
+    runs-on: potus
 
     steps:
       # Paso 1: Checkout del repositorio
