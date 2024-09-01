@@ -21,7 +21,7 @@ class DatabaseWrapper {
         console.log('Creada la base de datos SQLite.');
       }
     });
-    this.init();
+    //this.init();
   }
 
   init() {
@@ -68,7 +68,7 @@ class DatabaseWrapper {
     });
   }
   
-
+// crud basico
   async getIncidenciaById(id: number):Promise<Incidencia>{
     return new Promise<Incidencia>((resolve, reject) => {
       
@@ -86,7 +86,7 @@ class DatabaseWrapper {
 
   crearIncidencia(incidencia: Incidencia){
     
-    this.db.run("INSERT INTO incidencia (incidencia_id, nombre, dni, email, tema, nivelDeRiesgo, localidad, descripcion, fechaDeCreacion, latitud, longitud, estado) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",[incidencia.id, incidencia.nombre, incidencia.dni, incidencia.email, incidencia.tema,incidencia.nivelDeRiesgo, incidencia.localidad, incidencia.descripcion, incidencia.fechaDeCreacion, null, null, incidencia.estado], 
+    this.db.run("INSERT INTO incidencia (incidencia_id, nombre, dni, email, tema, nivelDeRiesgo, localidad, descripcion, fechaDeCreacion, latitud, longitud, estado) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",[incidencia.id, incidencia.nombre, incidencia.dni, incidencia.email, incidencia.tema,incidencia.nivelDeRiesgo, incidencia.localidad, incidencia.descripcion, incidencia.fechaDeCreacion, incidencia.ubicacion.latitud, incidencia.ubicacion.longitud, incidencia.estado], 
       function error(err:Error) {
         if (err) {
           console.error("Error al crear la incidencia", err);
@@ -119,6 +119,29 @@ class DatabaseWrapper {
       }
     });
   }
+
+ //Filtros particulares
+  async getIncidenciasByTema(tema:string): Promise<Array<Incidencia>>{
+
+    return new Promise<Array<Incidencia>>((resolve, reject) => {
+      this.db.all("SELECT * from incidencia WHERE tema = ?", tema, (err: Error, rows: Array<Incidencia>) => {
+        if (err) {
+          console.error("Error al obtener las incidencias por tema", err);
+          reject(err);
+        }
+        else {
+          console.log("Incidencia obtenidas con exito");
+          resolve(rows);
+        }
+        
+      });
+
+    });
+
+   
+  }
+
+
   close(){
     this.db.close();
   }

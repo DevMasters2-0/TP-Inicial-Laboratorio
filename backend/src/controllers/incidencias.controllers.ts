@@ -12,6 +12,7 @@ import {
 import { Estado, Localidad, NivelDeRiesgo, Tema } from '../models/estados.models';
 import db from '../database/connection';
 
+// *** Manipular base de datos ***
 export const getIncidenciasController = async (req: Request, res: Response): Promise<void> => {
     const Incidencias: Incidencia[] = await db.getIncidencias();
     res.status(200).json({ Incidencias });
@@ -29,7 +30,6 @@ export const getIncidenciaByIdController = async (req: Request, res: Response): 
 
 export const createIncidenciaController = (req: Request, res: Response): void => {
     const Incidencia: Incidencia = req.body;
-    //createIncidencia(Incidencia);
     db.crearIncidencia(Incidencia);
     res.status(201).json({
         message: 'Incidencia created',
@@ -81,11 +81,12 @@ export const getEstadosController = (req: Request, res: Response): void => {
 };
 
 // Filtros
-export const getIncidenciasByTemaController = (req: Request, res: Response): void => {
+export const getIncidenciasByTemaController = async (req: Request, res: Response): Promise<void> => {
     const tema = req.params.tema as Tema;
-    const incidencias: Incidencia[] = getIncidenciasV2();
-    const filteredIncidencias = incidencias.filter(inc => inc.tema === tema);
-    res.status(200).json({ incidencias: filteredIncidencias });
+    const incidencias: Incidencia[] = await db.getIncidenciasByTema(tema);
+    //const filteredIncidencias = incidencias.filter(inc => inc.tema === tema);
+
+    res.status(200).json({ incidencias });
   };
 
 export const getIncidenciasByRiesgoController = (req: Request, res: Response): void => {
