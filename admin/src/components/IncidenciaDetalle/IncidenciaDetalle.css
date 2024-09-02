@@ -10,6 +10,7 @@
     display: grid;
     grid-template-columns: auto 1fr;
     border-bottom: solid 2px black;
+    border-top: solid 2px black;
     padding: 0.5rem 1rem;
     gap: 1rem; /* Agrega espacio entre las filas */
   }

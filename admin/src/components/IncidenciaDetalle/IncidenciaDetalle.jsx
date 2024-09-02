@@ -6,30 +6,30 @@ import './IncidenciaDetalle.css';
 const IncidenciaDetalle = ({incidencia, onBack}) => {
     
     return (
-     <div class="incidencias-container">
-        <div class="incidencia">
-            <div class="campo">ID</div>
-            <div class="dato">{incidencia.id}</div>
-            <div class="campo">NOMBRE</div>
-            <div class="dato">{incidencia.nombre}</div>
-            <div class="campo">DNI</div>
-            <div class="dato">{incidencia.dni}</div>
-            <div class="campo">EMAIL</div>
-            <div class="dato">{incidencia.email}</div>
-            <div class="campo">TEMA</div>
-            <div class="dato">{capitalize(incidencia.tema)}</div>
-            <div class="campo">RIESGO</div>
-            <div class="dato">{capitalize(incidencia.nivelDeRiesgo)}</div>
-            <div class="campo">LOCALIDAD</div>
-            <div class="dato">{capitalize(incidencia.localidad)}</div>
-            <div class="campo">ESTADO</div>
-            <div class="dato">{incidencia.estado.toUpperCase()}</div>
-            <div class="campo">DESCRIPCION</div>
-            <div class="dato">{incidencia.descripcion}</div>
-            <div class="campo">FECHA DE CREACION</div>
-            <div class="dato"> {formatDate(incidencia.fechaDeCreacion)}</div>
+     <div className="incidencias-container">
+        <div className="incidencia">
+            <div className="campo">ID</div>
+            <div className="dato">{incidencia.incidencia_id}</div>
+            <div className="campo">NOMBRE</div>
+            <div className="dato">{incidencia.nombre}</div>
+            <div className="campo">DNI</div>
+            <div className="dato">{incidencia.dni}</div>
+            <div className="campo">EMAIL</div>
+            <div className="dato">{incidencia.email}</div>
+            <div className="campo">TEMA</div>
+            <div className="dato">{capitalize(incidencia.tema)}</div>
+            <div className="campo">RIESGO</div>
+            <div className="dato">{capitalize(incidencia.nivelDeRiesgo)}</div>
+            <div className="campo">LOCALIDAD</div>
+            <div className="dato">{capitalize(incidencia.localidad)}</div>
+            <div className="campo">ESTADO</div>
+            <div className="dato">{incidencia.estado.toUpperCase()}</div>
+            <div className="campo">DESCRIPCION</div>
+            <div className="dato">{incidencia.descripcion}</div>
+            <div className="campo">FECHA DE CREACION</div>
+            <div className="dato"> {formatDate(incidencia.fechaDeCreacion)}</div>
         </div>
-        <div class='centrar-boton'><button onClick={onBack} id='boton-volver'> Volver</button></div>
+        <div className='centrar-boton'><button onClick={onBack} id='boton-volver'> Volver</button></div>
     </div>
     
     

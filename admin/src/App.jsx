@@ -46,17 +46,6 @@ function App() {
 
   const [incidencias, setIncidencias] = React.useState([]);
   
-  const [selectedIncidencia, setSelectedIncidencia] = React.useState(null);
-
-  const handleSelectIncidencia = (incidencia) => {
-    console.log('Selected Incidencia:', incidencia);
-    setSelectedIncidencia(incidencia);
-  };
-
-  const handleBack = () => {
-    setSelectedIncidencia(null);
-  };
-
   React.useEffect(() => {
     const fetchIncidencias = async () => {
       const response = await axios.get(`http://${import.meta.env.VITE_IP}/incidencias`);
@@ -65,6 +54,16 @@ function App() {
 
     fetchIncidencias();
   }, [])
+
+  const [selectedIncidencia, setSelectedIncidencia] = React.useState(null);
+
+  const handleSelectIncidencia = (incidencia) => {
+    setSelectedIncidencia(incidencia);
+  };
+
+  const handleBack = () => {
+    setSelectedIncidencia(null);
+  };
 
   return (
     <>

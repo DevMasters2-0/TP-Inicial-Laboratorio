@@ -18,7 +18,7 @@ const Incidencia = ({incidencias, onDetalleClick}) => {
         
 
         {incidencias.map((incidencia)=>
-            <div className="incidencias-list" key={incidencia.id}>
+            <div className="incidencias-list" key={incidencia.incidencia_id}>
                 <div className='incidencia'>
                     <div className="incidencia-nombre">
                         {incidencia.nombre}
