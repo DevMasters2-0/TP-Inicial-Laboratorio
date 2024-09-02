@@ -2,36 +2,24 @@ version: '3.8'
 
 services:
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image: ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-server:latest
     container_name: nms-server
     ports:
       - "5175:3000"
     volumes:
       - ./backend:/app
-    environment:
-      - ENV=development
 
   admin:
-    build:
-      context: ./admin
-      dockerfile: Dockerfile
+    image: ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-admin:latest
     container_name: nms-admin
     ports:
       - "5174:5173"
-    environment:
-      - ENV=production
 
   client:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
+    image: ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-client:latest
     container_name: nms-client
     ports:
       - "5173:5173"
-    environment:
-      - ENV=production
 
 networks:
   default:
