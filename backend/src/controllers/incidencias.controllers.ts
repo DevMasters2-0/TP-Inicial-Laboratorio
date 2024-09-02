@@ -26,7 +26,7 @@ export const getIncidenciaByIdController = async (req: Request, res: Response): 
 };
 
 export const createIncidenciaController = (req: Request, res: Response): void => {
-    const Incidencia: Incidencia = req.body;
+   
     const incidencia: IncidenciaCreateDTO = req.body;
     const incidenciaCreated: Incidencia = createIncidencia(incidencia);
 
