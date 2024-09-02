@@ -11,9 +11,6 @@ RUN npm install
 # Copiar el resto de los archivos de la aplicación
 COPY . .
 
-# Instalar las dependencias
-RUN npm install 
-
 # Exponer el puerto en el que corre la aplicación
 EXPOSE 5173
 

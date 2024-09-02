@@ -14,5 +14,8 @@ COPY . .
 # Exponer el puerto en el que corre la aplicación
 EXPOSE 3000
 
+# Instalar las dependencias
+RUN npm install
+
 # Comando para ejecutar la aplicación
 CMD ["npm", "run", "dev"]
