@@ -27,7 +27,8 @@ router.get('/:id', getIncidenciaByIdController);
 router.delete('/:id', deleteIncidenciaController);
 
 router.post( //create
-  '/', 
+  '/',
+  validateIncidencia, 
   createIncidenciaController 
 );
 

@@ -4,7 +4,7 @@ import {
     NextFunction
   } from 'express';
 
-import { Estado, Tema } from "../../models/estados.models";
+import { Estado, Tema, NivelDeRiesgo } from '../../models/estados.models';
 
   export const validateUpdateIncidencia= (
     req: Request,
@@ -55,16 +55,22 @@ import { Estado, Tema } from "../../models/estados.models";
   
     // Get data from request body
     const {
-      incidencia_id,
+      id,
       nombre,
       email,
+      tema,
+      estado,
+      nivelDeRiesgo,
+      localidad,
+      descripcion,
+      fechaDeCreacion
     } = req.body;
   
     // Create an array to store errors
     const errors = [];
   
     // Valincidencia_idate data
-    if (!incidencia_id) {
+    if (!id) {
       errors.push('incidencia_id is required');
     }
   
@@ -76,6 +82,13 @@ import { Estado, Tema } from "../../models/estados.models";
       errors.push('email is required');
     }
   
+    if(!tema) errors.push('tema is required');
+    if(!estado) errors.push('estado is required');
+    if(!nivelDeRiesgo) errors.push('nivel de riesgo is required');
+    if(!localidad) errors.push('localidad is required');
+    if(!descripcion) errors.push('descripcion is required');
+    if(!fechaDeCreacion) errors.push('fecha de creacion is required');
+
     // If there are errors
     // return 422 (Unprocessable Entity)
     if (errors.length) {
@@ -85,6 +98,6 @@ import { Estado, Tema } from "../../models/estados.models";
       });
     }
   
-    // Pass Incincidencia_idencia data to the next mincidencia_iddleware
+    
     next();
   };
