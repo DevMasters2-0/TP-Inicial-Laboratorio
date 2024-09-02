@@ -8,36 +8,35 @@ import Heatmap from './components/Map/Heatmap';
 // heatmapData.js
 export const heatmapData = [
   // Generamos una gran cantidad de puntos en un rango alrededor de José C. Paz
-  { lat: -34.5500, lng: -58.7400, intensity: 1 },
-  { lat: -34.5505, lng: -58.7405, intensity: 1 },
-  { lat: -34.5510, lng: -58.7410, intensity: 1 },
-  { lat: -34.5515, lng: -58.7415, intensity: 1 },
-  { lat: -34.5520, lng: -58.7420, intensity: 1 },
-  { lat: -34.5525, lng: -58.7425, intensity: 1 },
-  { lat: -34.5530, lng: -58.7430, intensity: 1 },
-  { lat: -34.5535, lng: -58.7435, intensity: 1 },
-  { lat: -34.5540, lng: -58.7440, intensity: 1 },
-  { lat: -34.5545, lng: -58.7445, intensity: 1 },
-  { lat: -34.5550, lng: -58.7450, intensity: 1 },
-  { lat: -34.5555, lng: -58.7455, intensity: 1 },
-  { lat: -34.5560, lng: -58.7460, intensity: 1 },
-  { lat: -34.5565, lng: -58.7465, intensity: 1 },
-  { lat: -34.5570, lng: -58.7470, intensity: 1 },
-  { lat: -34.5575, lng: -58.7475, intensity: 1 },
-  { lat: -34.5580, lng: -58.7480, intensity: 1 },
-  { lat: -34.5585, lng: -58.7485, intensity: 1 },
-  { lat: -34.5590, lng: -58.7490, intensity: 1 },
-  { lat: -34.5595, lng: -58.7495, intensity: 1 },
-  { lat: -34.5600, lng: -58.7500, intensity: 1 },
-  { lat: -34.5605, lng: -58.7505, intensity: 1 },
-  { lat: -34.5610, lng: -58.7510, intensity: 1 },
-  { lat: -34.5615, lng: -58.7515, intensity: 1 },
-  // Continúa generando más puntos según sea necesario
+  { latitud: -34.5500, longitud: -58.7400,nivelDeRiesgo: "alto" },
+  { latitud: -34.5505, longitud: -58.7405,nivelDeRiesgo: "bajo" },
+  { latitud: -34.5510, longitud: -58.7410,nivelDeRiesgo: "alto" },
+  { latitud: -34.5515, longitud: -58.7415,nivelDeRiesgo: "alto" },
+  { latitud: -34.5520, longitud: -58.7420,nivelDeRiesgo: "bajo" },
+  { latitud: -34.5525, longitud: -58.7425,nivelDeRiesgo: "alto" },
+  { latitud: -34.5530, longitud: -58.7430,nivelDeRiesgo: "alto" },
+  { latitud: -34.5535, longitud: -58.7435,nivelDeRiesgo: "bajo" },
+  { latitud: -34.5540, longitud: -58.7440,nivelDeRiesgo: "alto" },
+  { latitud: -34.5545, longitud: -58.7445,nivelDeRiesgo: "alto" },
+  { latitud: -34.5550, longitud: -58.7450,nivelDeRiesgo: "bajo" },
+  { latitud: -34.5555, longitud: -58.7455,nivelDeRiesgo: "alto" },
+  { latitud: -34.5560, longitud: -58.7460,nivelDeRiesgo: "moderado" },
+  { latitud: -34.5565, longitud: -58.7465,nivelDeRiesgo: "alto" },
+  { latitud: -34.5570, longitud: -58.7470,nivelDeRiesgo: "alto" },
+  { latitud: -34.5575, longitud: -58.7475,nivelDeRiesgo: "bajo" },
+  { latitud: -34.5580, longitud: -58.7480,nivelDeRiesgo: "alto" },
+  { latitud: -34.5585, longitud: -58.7485,nivelDeRiesgo: "bajo" },
+  { latitud: -34.5590, longitud: -58.7490,nivelDeRiesgo: "alto" },
+  { latitud: -34.5595, longitud: -58.7495,nivelDeRiesgo: "bajo" },
+  { latitud: -34.5600, longitud: -58.7500,nivelDeRiesgo: "alto" },
+  { latitud: -34.5605, longitud: -58.7505,nivelDeRiesgo: "moderado" },
+  { latitud: -34.5610, longitud: -58.7510,nivelDeRiesgo: "alto" },
+  { latitud: -34.5615, longitud: -58.7515,nivelDeRiesgo: "alto" },
 ];
 
 
 function App() {
-  const [mapView, setMapView] = React.useState(true);
+  const [mapView, setMapView] = React.useState(true); // Esto est mal xd (lo hice yo, se hace con React.Router)
 
   const handleChange = (flag) => {
     return () => setMapView(flag);
