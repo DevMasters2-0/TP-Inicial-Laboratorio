@@ -16,6 +16,7 @@ export interface IncidenciaCreateDTO {
   nivelDeRiesgo: string;
   localidad: string;
   ubicacion: Ubicacion;
+  fechaDeCreacion: Date | null;
   descripcion: string;
 }
 
@@ -50,7 +51,7 @@ export interface Incidencia extends IncidenciaCreateDTO {
     const incidenciaCreated: Incidencia = {
       ...incidencia,
       id: incidencia.id, 
-      fechaDeCreacion: new Date(),
+      fechaDeCreacion: incidencia.fechaDeCreacion,
       estado: Estado.EN_REVISION,
     };
   
