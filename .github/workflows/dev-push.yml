@@ -61,7 +61,5 @@ jobs:
         run: docker-compose -f docker-compose-dev.yml -p dm-nms down
       - name: Bajar servicio anterior 2
         run: docker-compose -f docker-compose-dev.yml -p dm-nms down
-      - name: Buildear nueva imagen
-        run: docker-compose -f docker-compose-dev.yml build --no-cache
       - name: Desplegar en PWS
         run: docker-compose -f docker-compose-dev.yml -p dm-nms up -d
