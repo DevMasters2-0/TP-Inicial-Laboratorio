@@ -116,15 +116,75 @@ header {
 }
 
 
-.incidencias-container .incidencias-list .incidencia .incidencia-detalle .boton-detalle{
-  background-color: #d1d6db;
-  width: 30px;
+.incidencias-container .incidencias-list .incidencia .incidencia-detalle{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.incidencias-container .incidencias-list .incidencia .incidencia-detalle .boton-detalle {
+  width: 40px; /* Increased size for better visibility */
+  height: 30px; /* Ensures the button is round */
+  font-weight: 700;
   text-align: center;
-  border-radius: 100%;
-  padding: 0.2rem;
+  border-radius: 50%; /* Fully rounded */
+  padding: 0 0.2rem;
   margin: 0 auto;
+  cursor: pointer;
+  font-size: 1.2rem; /* Slightly larger font size */
+  background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Gradient background */
+  color: white; /* White text color for contrast */
+  border: none; /* Removes default border */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Soft text shadow for better readability */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effects */
+}
+
+.incidencias-container .incidencias-list .incidencia .incidencia-detalle .boton-detalle:hover {
+  transform: scale(1.1); /* Slightly enlarges the button on hover */
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3); /* Increased shadow on hover */
+}
+
+.incidencias-container .incidencias-list .incidencia .incidencia-detalle .boton-detalle:active {
+  transform: scale(0.9); /* Slightly shrinks the button on click */
 }
 
 #paragraph{
   font-size: 24px;
+}
+
+
+
+/** Not Found Page **/
+.not-found-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.not-found-title {
+  font-size: 6rem;
+  margin: 0;
+  color: #e74c3c; /* Red color for emphasis */
+}
+
+.not-found-message {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
+
+.not-found-link {
+  font-size: 1.2rem;
+  color: #3498db; /* Blue color for the link */
+  text-decoration: none;
+}
+
+.not-found-link:hover {
+  text-decoration: underline;
 }

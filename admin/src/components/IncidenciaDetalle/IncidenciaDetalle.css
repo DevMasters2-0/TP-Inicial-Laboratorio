@@ -1,35 +1,31 @@
-.incidencias-container {
+.incidencias-container-modal {
     display: flex;
     flex-direction: column;
     width: 100%;
     color: #1c1c1c;
   }
   
-  /* Fila de datos de una incidencia */
-  .incidencias-container .incidencia {
+  .incidencias-container-modal .incidencia-modal {
     display: grid;
     grid-template-columns: auto 1fr;
     border-bottom: solid 2px black;
     border-top: solid 2px black;
     padding: 0.5rem 1rem;
-    gap: 1rem; /* Agrega espacio entre las filas */
+    gap: 1rem; 
   }
   
-  /* Encabezado de campo y datos */
-  .incidencias-container .incidencia .campo {
+  .incidencias-container-modal .incidencia-modal .campo {
     font-weight: bold;
     padding-right: 1rem;
     border-right: solid 1px #ccc;
     text-align: left;
   }
   
-  /* Datos correspondientes */
-  .incidencias-container .incidencia .dato {
+  .incidencias-container-modal .incidencia-modal .dato {
     padding-left: 1rem;
   }
   
-  /* Estilo para el botón de volver */
-  .incidencias-container .incidencia .incidencia-detalle .boton-volver {
+  .incidencias-container-modal .incidencia-modal .incidencia-detalle .boton-volver {
     background-color: #d1d6db;
     width: 50px;
     text-align: center;
@@ -67,42 +63,45 @@
 }
 
   @media (max-width: 600px) {
-    .incidencias-container .incidencia {
+    .incidencias-container-modal .incidencia-modal {
       grid-template-columns: 1fr;
       grid-template-rows: repeat(auto-fill, min-content);
       gap: 1rem; /* Agrega espacio entre las filas también en móviles */
     }
   
-    .incidencias-container .incidencia .campo,
-    .incidencias-container .incidencia .dato {
+    .incidencias-container-modal .incidencia-modal .campo,
+    .incidencias-container-modal .incidencia-modal .dato {
       border: none;
       padding: 0.5rem;
       text-align: left;
     }
   
-    .incidencias-container .incidencia .campo {
+    .incidencias-container-modal .incidencia-modal .campo {
       font-weight: bold;
     }
 
-    /* Estilo para el botón de volver */
     #boton-volver {
         display: inline-block;
-        background-color: #ff0055; /* Color de fondo del botón */
-        color: #fff; /* Color del texto */
-        padding: 0.8rem 1.5rem; /* Espaciado interno del botón */
-        font-size: 1rem; /* Tamaño de la fuente */
-        font-weight: bold; /* Negrita en el texto */
-        text-align: center; /* Alineación del texto */
-        text-decoration: none; /* Quitar subrayado del texto */
-        border-radius: 0.5rem; /* Bordes redondeados */
-        border: 2px solid #ff005d; /* Borde del botón */
-        transition: all 0.3s ease; /* Transiciones suaves */
-        cursor: pointer; /* Cambiar cursor a mano */
+        background-color: #ff0055; 
+        color: #fff; 
+        padding: 0.8rem 1.5rem; 
+        font-size: 1rem; 
+        font-weight: bold; 
+        text-align: center; 
+        text-decoration: none; 
+        border-radius: 0.5rem; 
+        border: 2px solid #ff005d; 
+        transition: all 0.3s ease; 
+        cursor: pointer; 
     }
     
     #boton-volver:hover {
-        background-color: #b30000; /* Color de fondo cuando el cursor está sobre el botón */
-        border-color: #b30000; /* Color del borde cuando el cursor está sobre el botón */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para efecto de profundidad */
+        background-color: #b30000; 
+        border-color: #b30000; 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
     }
+  }
+
+  .text-error-not-found {
+    color: #1c1c1c;
   }
