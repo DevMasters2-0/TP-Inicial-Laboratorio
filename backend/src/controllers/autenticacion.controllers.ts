@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { User, getUserByUsername, getUsers } from '../models/users.models';
 
 export const loginController = (req: Request, res: Response): void => {
 
@@ -6,19 +7,21 @@ export const loginController = (req: Request, res: Response): void => {
 
     try {
         // Buscar el usuario por nombre de usuario
-        const user = await User.findOne({ username });
-        if (!user) return res.status(400).send('Usuario no encontrado');
+
+        const users: User[] = getUsers();
+
+        const user = getUserByUsername(username);
+
+        (!user) && res.status(400).send('Usuario no encontrado');
 
         // Comparar la contraseña
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) return res.status(400).send('Contraseña incorrecta');
+        (!user || password !== user.password) && res.status(400).send('Contraseña incorrecta');
 
-        // Crear y asignar un token JWT
-        const token = jwt.sign({ id: user._id, username: user.username }, 'secret_key', { expiresIn: '1h' });
-        res.header('auth-token', token).send({ token });
+
+        // Sesión iniciada
+        res.status(200).send('Sesion iniciada');
 
     } catch (error) {
         res.status(500).send('Error en el inicio de sesión');
     }
-});
-};
+}
