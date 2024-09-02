@@ -18,6 +18,7 @@ export interface IncidenciaCreateDTO {
   ubicacion: Ubicacion;
   fechaDeCreacion: Date | null;
   descripcion: string;
+  image_url: string | null;
 }
 
 export interface Incidencia extends IncidenciaCreateDTO {
@@ -35,6 +36,7 @@ export interface Incidencia extends IncidenciaCreateDTO {
       longitud: number;
     };  
     estado: Estado; 
+    image_url: string | null;
 }
 
   export const getIncidencias = async (): Promise<Array<Incidencia>> => {
@@ -53,6 +55,7 @@ export interface Incidencia extends IncidenciaCreateDTO {
       id: incidencia.id, 
       fechaDeCreacion: incidencia.fechaDeCreacion,
       estado: Estado.EN_REVISION,
+      image_url: incidencia.image_url
     };
   
     return incidenciaCreated;

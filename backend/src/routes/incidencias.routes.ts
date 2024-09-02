@@ -3,7 +3,7 @@ import { createIncidenciaController, deleteIncidenciaController, getEstadosContr
     getIncidenciaByIdController, getIncidenciasByEstadoController, getIncidenciasByLocalidadController,
     getIncidenciasByRiesgoController, getIncidenciasByTemaController, getIncidenciasController, getLocalidadesController, 
     getNivelesDeRiesgoController, getTemasController, updateIncidenciaController, getIncidenciasByFecha } from '../controllers/incidencias.controllers';
-import { validateIncidencia,  validateUpdateIncidencia } from '../utils/validations/incidencias.validations';
+import { validateIncidenciaCreate,  validateUpdateIncidencia } from '../utils/validations/incidencias.validations';
     
 
 
@@ -30,7 +30,7 @@ router.delete('/:id', deleteIncidenciaController);
 
 router.post( //create
   '/',
-  validateIncidencia, 
+  validateIncidenciaCreate, 
   createIncidenciaController 
 );
 
