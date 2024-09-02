@@ -7,7 +7,7 @@ services:
     ports:
       - "5175:3000"
     volumes:
-      - ./backend:/app
+      - ./backend/mydatabase.sqlite:/app/mydatabase.sqlite
 
   admin:
     image: ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-admin:latest
