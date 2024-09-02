@@ -4,6 +4,7 @@ import MapComponent from './components/Map/MapComponent';
 import axios from 'axios';
 import Incidencia from './components/Incidencia/Incidencia';
 import Heatmap from './components/Map/Heatmap'; 
+import IncidenciaDetalle  from './components/IncidenciaDetalle/IncidenciaDetalle';
 
 // heatmapData.js
 export const heatmapData = [
@@ -44,7 +45,17 @@ function App() {
   };
 
   const [incidencias, setIncidencias] = React.useState([]);
+  
+  const [selectedIncidencia, setSelectedIncidencia] = React.useState(null);
 
+  const handleSelectIncidencia = (incidencia) => {
+    console.log('Selected Incidencia:', incidencia);
+    setSelectedIncidencia(incidencia);
+  };
+
+  const handleBack = () => {
+    setSelectedIncidencia(null);
+  };
 
   React.useEffect(() => {
     const fetchIncidencias = async () => {
@@ -60,64 +71,41 @@ function App() {
       <header>
         <h1>NMS</h1>
         <div className="nombre">
-          <p><strong>David Cañete</strong></p>
+          <p>
+            <strong>David Cañete</strong>
+          </p>
         </div>
       </header>
-      <div className='divisor-container'>
-        <div className='left-menu'>
+      <div className="divisor-container">
+        <div className="left-menu">
           <ul>
             <li onClick={handleChange(true)}>Dashboard</li>
             <li onClick={handleChange(false)}>Incidencias</li>
             <li>Cerrar Sesión</li>
           </ul>
-          <button className="cerrar-left-menu">
-            &lt;
-          </button>
+          <button className="cerrar-left-menu">&lt;</button>
         </div>
         <div className="content">
           {mapView ? (
             <div className="map-container">
-              <Heatmap data={heatmapData}/>
+              <Heatmap data={heatmapData} />
             </div>
+          ) : incidencias.length === 0 ? (
+            <div className='incidencias-container'>
+            <p id='paragraph'>No hay incidencias disponibles</p>
+            </div>
+          ) : !selectedIncidencia ? (
+            <Incidencia
+              incidencias={incidencias}
+              onDetalleClick={handleSelectIncidencia}
+            />
           ) : (
-            <div className="incidencias-container">
-              <div className="campos-list">
-                <div className="incidencia-nombre">
-                  NOMBRE
-                </div>
-                <div className="incidencia-localidad">
-                  LOCALIDAD
-                </div>
-                <div className="incidencia-riesgo">RIESGO</div>
-                <div className="incidencia-estado">ESTADO</div>
-                <div className="incidencia-detalle">
-                </div>
-              </div>
-              <div className="incidencias-list">
-                <div className="incidencia">
-                  <div className="incidencia-nombre">
-                    Incidencia
-                  </div>
-                  <div className="incidencia-localidad">
-                    Jose C Paz
-                  </div>
-                  <div className="incidencia-riesgo">ALTO</div>
-                  <div className="incidencia-estado">En Revisión</div>
-                  <div className="incidencia-detalle">
-                    <div className="boton-detalle">+</div>
-                  </div>
-                </div>
-                {incidencias.length > 0 ? (
-                  incidencias.map(incidencia => (
-                    <Incidencia key={incidencia.id} props={incidencia} />
-                  ))
-                ) : (
-                  <p>No hay incidencias disponibles</p>
-                )}
-              </div>
-            </div>
-
-          )}
+            <IncidenciaDetalle
+              incidencia={selectedIncidencia}
+              onBack={handleBack}
+            />
+          )
+          }
         </div>
       </div>
     </>

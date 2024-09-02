@@ -1,21 +1,38 @@
 import React from 'react'
+import './Incidencia.css';
 
-const Incidencia = ({props}) => {
+
+const Incidencia = ({incidencias, onDetalleClick}) => {
+   
     return (
-        <div className="incidencia">
-            <div className="incidencia-nombre">
-                {props.nombre}
-            </div>
-            <div className="incidencia-localidad">
-                {props.localidad}
-            </div>
-            <div className="incidencia-riesgo">{props.nivelDeRiesgo.toUpperCase()}</div>
-            <div className="incidencia-estado">{props.estado}</div>
-            <div className="incidencia-detalle">
-                <div className="boton-detalle">+</div>
-            </div>
-        </div>
-    )
-}
+        
+        <div className="incidencias-container">
+              <div className="campos-list">
+                <div className="incidencia-nombre">NOMBRE</div>
+                <div className="incidencia-localidad">LOCALIDAD</div>
+                <div className="incidencia-riesgo">RIESGO</div>
+                <div className="incidencia-estado">ESTADO</div>
+                <div className="incidencia-detalle"> INGRESAR AL DETALLE </div>
+               
+              </div>
+        
 
+        {incidencias.map((incidencia)=>
+            <div className="incidencias-list" key={incidencia.id}>
+                <div className='incidencia'>
+                    <div className="incidencia-nombre">
+                        {incidencia.nombre}
+                    </div>
+                    <div className="incidencia-localidad">
+                        {incidencia.localidad}
+                    </div>
+                    <div className="incidencia-riesgo">{incidencia.nivelDeRiesgo.toUpperCase()}</div>
+                    <div className="incidencia-estado">{incidencia.estado}</div>
+                    <div className='incidencia-detalle'><button onClick={() => onDetalleClick(incidencia)}>Detalle</button></div>
+                </div>
+            </div>
+            )}
+        </div>
+    );
+    }
 export default Incidencia

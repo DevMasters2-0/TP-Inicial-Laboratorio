@@ -115,8 +115,6 @@ header {
   font-weight: bold;
 }
 
-.incidencias-container .incidencias-list .incidencia .incidencia-detalle{
-}
 
 .incidencias-container .incidencias-list .incidencia .incidencia-detalle .boton-detalle{
   background-color: #d1d6db;
@@ -127,3 +125,6 @@ header {
   margin: 0 auto;
 }
 
+#paragraph{
+  font-size: 24px;
+}

@@ -1,0 +1,107 @@
+.incidencias-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: #1c1c1c;
+  }
+  
+  /* Fila de datos de una incidencia */
+  .incidencias-container .incidencia {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    border-bottom: solid 2px black;
+    padding: 0.5rem 1rem;
+    gap: 1rem; /* Agrega espacio entre las filas */
+  }
+  
+  /* Encabezado de campo y datos */
+  .incidencias-container .incidencia .campo {
+    font-weight: bold;
+    padding-right: 1rem;
+    border-right: solid 1px #ccc;
+    text-align: left;
+  }
+  
+  /* Datos correspondientes */
+  .incidencias-container .incidencia .dato {
+    padding-left: 1rem;
+  }
+  
+  /* Estilo para el botón de volver */
+  .incidencias-container .incidencia .incidencia-detalle .boton-volver {
+    background-color: #d1d6db;
+    width: 50px;
+    text-align: center;
+    border-radius: 100%;
+    padding: 0.5rem;
+    margin: 0 auto;
+    cursor: pointer;
+  }
+  
+  #boton-volver {
+    display: inline-block;
+    background-color: #ff0055; /* Color de fondo del botón */
+    color: #fff; /* Color del texto */
+    padding: 0.8rem 1.5rem; /* Espaciado interno del botón */
+    font-size: 1rem; /* Tamaño de la fuente */
+    font-weight: bold; /* Negrita en el texto */
+    text-align: center; /* Alineación del texto */
+    text-decoration: none; /* Quitar subrayado del texto */
+    border-radius: 0.5rem; /* Bordes redondeados */
+    border: 2px solid #ff005d; /* Borde del botón */
+    transition: all 0.3s ease; /* Transiciones suaves */
+    cursor: pointer; /* Cambiar cursor a mano */
+}
+.centrar-boton {
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    margin-top: 2%;
+  }
+
+#boton-volver:hover {
+    background-color: #b30000; /* Color de fondo cuando el cursor está sobre el botón */
+    border-color: #b30000; /* Color del borde cuando el cursor está sobre el botón */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para efecto de profundidad */
+}
+
+  @media (max-width: 600px) {
+    .incidencias-container .incidencia {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(auto-fill, min-content);
+      gap: 1rem; /* Agrega espacio entre las filas también en móviles */
+    }
+  
+    .incidencias-container .incidencia .campo,
+    .incidencias-container .incidencia .dato {
+      border: none;
+      padding: 0.5rem;
+      text-align: left;
+    }
+  
+    .incidencias-container .incidencia .campo {
+      font-weight: bold;
+    }
+
+    /* Estilo para el botón de volver */
+    #boton-volver {
+        display: inline-block;
+        background-color: #ff0055; /* Color de fondo del botón */
+        color: #fff; /* Color del texto */
+        padding: 0.8rem 1.5rem; /* Espaciado interno del botón */
+        font-size: 1rem; /* Tamaño de la fuente */
+        font-weight: bold; /* Negrita en el texto */
+        text-align: center; /* Alineación del texto */
+        text-decoration: none; /* Quitar subrayado del texto */
+        border-radius: 0.5rem; /* Bordes redondeados */
+        border: 2px solid #ff005d; /* Borde del botón */
+        transition: all 0.3s ease; /* Transiciones suaves */
+        cursor: pointer; /* Cambiar cursor a mano */
+    }
+    
+    #boton-volver:hover {
+        background-color: #b30000; /* Color de fondo cuando el cursor está sobre el botón */
+        border-color: #b30000; /* Color del borde cuando el cursor está sobre el botón */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para efecto de profundidad */
+    }
+  }
