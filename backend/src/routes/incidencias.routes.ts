@@ -2,8 +2,10 @@ import { Router, Request, Response } from 'express';
 import { createIncidenciaController, deleteIncidenciaController, getEstadosController, 
     getIncidenciaByIdController, getIncidenciasByEstadoController, getIncidenciasByLocalidadController,
     getIncidenciasByRiesgoController, getIncidenciasByTemaController, getIncidenciasController, getLocalidadesController, 
-    getNivelesDeRiesgoController, getTemasController, updateIncidenciaController } from '../controllers/incidencias.controllers';
+    getNivelesDeRiesgoController, getTemasController, updateIncidenciaController, getIncidenciasByFecha } from '../controllers/incidencias.controllers';
 import { validateIncidencia,  validateUpdateIncidencia } from '../utils/validations/incidencias.validations';
+    
+
 
 // New Router instance
 const router = Router();
@@ -19,6 +21,7 @@ router.get('/temas/:tema', getIncidenciasByTemaController);
 router.get('/riesgos/:nivelDeRiesgo', getIncidenciasByRiesgoController);
 router.get('/localidades/:localidad', getIncidenciasByLocalidadController);
 router.get('/estados/:estado', getIncidenciasByEstadoController);
+router.get("/fechas/:fecha", getIncidenciasByFecha);
 
 // Incidencias routes
 router.get('/', getIncidenciasController)
@@ -26,7 +29,8 @@ router.get('/:id', getIncidenciaByIdController);
 router.delete('/:id', deleteIncidenciaController);
 
 router.post( //create
-  '/', 
+  '/',
+  validateIncidencia, 
   createIncidenciaController 
 );
 
@@ -35,5 +39,7 @@ router.put( //update
   validateUpdateIncidencia,
   updateIncidenciaController
 );
+
+
 
 export default router;

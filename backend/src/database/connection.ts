@@ -10,18 +10,19 @@ export interface DatabaseSQL{
 }
 
 class DatabaseWrapper {
+ 
   private db: sqlite3.Database;
 
   constructor() {
 
-    this.db = new sqlite3.Database('mydatabase.sqlite', (err) => {
+    this.db = new sqlite3.Database('src/database/mydatabase.sqlite', (err) => {
       if (err) {
         console.error('Error al crear la base de datos:', err.message);
       } else {
         console.log('Creada la base de datos SQLite.');
       }
     });
-    //this.init();
+    this.init();
   }
 
   init() {
@@ -197,8 +198,24 @@ class DatabaseWrapper {
 
   }
   
+  obtenerIncidenciasPorFecha(fecha: string): Promise<Array<Incidencia>> {
+    
+    return new Promise<Array<Incidencia>>((resolve, reject) => {
+      this.db.all("SELECT * from incidencia WHERE fechaDeCreacion = ?", fecha, (err: Error, rows: Array<Incidencia>) => {
+        if (err) {
+          console.error("Error al obtener las incidencias por fecha de creacion", err);
+          reject(err);
+        }
+        else {
+          console.log("Incidencias obtenidas con exito");
+          resolve(rows);
+        }
+        
+      });
+      
+    });
+  }
   
-  //estado
 
   close(){
     this.db.close();

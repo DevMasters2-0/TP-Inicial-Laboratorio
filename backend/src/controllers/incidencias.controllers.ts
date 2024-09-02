@@ -4,12 +4,11 @@ import {
     getIncidencias,
     getIncidenciaById,
     createIncidencia,
-    updateIncidencia,
-    deleteIncidencia,
     IncidenciaCreateDTO
 } from '../models/incidencias.models';
 import { Estado, Localidad, NivelDeRiesgo, Tema } from '../models/estados.models';
 import db from '../database/connection';
+
 
 // *** Manipular base de datos ***
 export const getIncidenciasController = async (req: Request, res: Response): Promise<void> => {
@@ -28,8 +27,7 @@ export const getIncidenciaByIdController = async (req: Request, res: Response): 
 };
 
 export const createIncidenciaController = (req: Request, res: Response): void => {
-    const Incidencia: Incidencia = req.body;
-    db.crearIncidencia(Incidencia);
+   
     const incidencia: IncidenciaCreateDTO = req.body;
     const incidenciaCreated: Incidencia = createIncidencia(incidencia);
 
@@ -58,6 +56,20 @@ export const deleteIncidenciaController = (req: Request, res: Response): void =>
     res.status(200).json({
         message: `Incidencia ${id} deleted`,
     });
+};
+
+export async function getIncidenciasByFecha(req: Request, res: Response){
+    
+    let fecha = req.params.fecha;
+    let incidencias: Incidencia[] = await db.obtenerIncidenciasPorFecha(fecha);
+
+    if (incidencias.length === 0){
+        res.status(204).send(); //no content
+    }
+    else {
+        res.status(200).json({ incidencias });
+    } 
+
 };
 
 // *** Envio de enums ***
