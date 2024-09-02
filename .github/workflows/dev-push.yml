@@ -28,31 +28,38 @@ jobs:
 
       ## Backend
       # Paso 4: Construir la imagen Docker especificando el subdirectorio del Dockerfile
-      - name: Build Docker image
+      - name: Build Docker image backend
         run: docker build -t ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-server:latest ./backend
 
       # Paso 5: Subir la imagen al GitHub Container Registry
-      - name: Push Docker image to GitHub Container Registry
+      - name: Push Docker image to GCR backend
         run: docker push ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-server:latest
 
 
       ## Admin-Frontend
       # Paso 6: Construir la imagen Docker especificando el subdirectorio del Dockerfile
-      - name: Build Docker image
+      - name: Build Docker image admin
         run: docker build -t ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-admin:latest ./admin
 
       # Paso 7: Subir la imagen al GitHub Container Registry
-      - name: Push Docker image to GitHub Container Registry
+      - name: Push Docker image to GCR admin
         run: docker push ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-admin:latest
 
 
       ## User-Frontend
       # Paso 8: Construir la imagen Docker especificando el subdirectorio del Dockerfile
-      - name: Build Docker image
+      - name: Build Docker image client
         run: docker build -t ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-client:latest ./client
 
       # Paso 9: Subir la imagen al GitHub Container Registry
-      - name: Push Docker image to GitHub Container Registry
+      - name: Push Docker image to GCR Client
         run: docker push ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-client:latest
 
-     
+      # Paso 10: Desplegar en la nube de PWS
+      # Paso 10: Desplegar en la nube de PWS
+      - name: Bajar servicio anterior 1
+        run: docker-compose -f docker-compose-dev.yml -p dm-nms down
+      - name: Bajar servicio anterior 2
+        run: docker-compose -f docker-compose-dev.yml -p dm-nms down
+      - name: Desplegar en PWS
+        run: docker-compose -f docker-compose-dev.yml -p dm-nms up -d

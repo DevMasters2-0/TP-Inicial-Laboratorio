@@ -6,7 +6,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Instalar las dependencias
-RUN npm install --production
+RUN npm install
 
 # Copiar el resto de los archivos de la aplicación
 COPY . .
@@ -15,4 +15,4 @@ COPY . .
 EXPOSE 5173
 
 # Comando para ejecutar la aplicación
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "dev", "--", "--host"]

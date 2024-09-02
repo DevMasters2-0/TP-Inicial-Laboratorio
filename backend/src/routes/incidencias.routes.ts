@@ -4,6 +4,8 @@ import { createIncidenciaController, deleteIncidenciaController, getEstadosContr
     getIncidenciasByRiesgoController, getIncidenciasByTemaController, getIncidenciasController, getLocalidadesController, 
     getNivelesDeRiesgoController, getTemasController, updateIncidenciaController, getIncidenciasByFecha } from '../controllers/incidencias.controllers';
 import { validateIncidencia,  validateUpdateIncidencia } from '../utils/validations/incidencias.validations';
+    getNivelesDeRiesgoController, getTemasController, updateIncidenciaController } from '../controllers/incidencias.controllers';
+import { validateIncidencia,  validateUpdateIncidencia } from '../utils/validations/incidencias.validations';
 
 // New Router instance
 const router = Router();
