@@ -15,7 +15,7 @@ class DatabaseWrapper {
 
   constructor() {
 
-    this.db = new sqlite3.Database('mydatabase.sqlite', (err) => {
+    this.db = new sqlite3.Database('src/database/mydatabase.sqlite', (err) => {
       if (err) {
         console.error('Error al crear la base de datos:', err.message);
       } else {

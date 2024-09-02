@@ -8,7 +8,7 @@ import {
 } from '../models/incidencias.models';
 import { Estado, Localidad, NivelDeRiesgo, Tema } from '../models/estados.models';
 import db from '../database/connection';
-import db from '../database/connection';
+
 
 // *** Manipular base de datos ***
 export const getIncidenciasController = async (req: Request, res: Response): Promise<void> => {
