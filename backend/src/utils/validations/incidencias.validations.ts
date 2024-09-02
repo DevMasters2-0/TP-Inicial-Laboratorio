@@ -47,7 +47,7 @@ import { Estado, Tema, NivelDeRiesgo } from '../../models/estados.models';
 
 
 
-  export const validateIncidencia = (
+  export const validateIncidenciaCreate = (
     req: Request,
     res: Response,
     next: NextFunction
@@ -59,11 +59,10 @@ import { Estado, Tema, NivelDeRiesgo } from '../../models/estados.models';
       nombre,
       email,
       tema,
-      estado,
       nivelDeRiesgo,
       localidad,
       descripcion,
-      fechaDeCreacion
+     
     } = req.body;
   
     // Create an array to store errors
@@ -83,12 +82,10 @@ import { Estado, Tema, NivelDeRiesgo } from '../../models/estados.models';
     }
   
     if(!tema) errors.push('tema is required');
-    if(!estado) errors.push('estado is required');
     if(!nivelDeRiesgo) errors.push('nivel de riesgo is required');
     if(!localidad) errors.push('localidad is required');
     if(!descripcion) errors.push('descripcion is required');
-    if(!fechaDeCreacion) errors.push('fecha de creacion is required');
-
+   
     // If there are errors
     // return 422 (Unprocessable Entity)
     if (errors.length) {
