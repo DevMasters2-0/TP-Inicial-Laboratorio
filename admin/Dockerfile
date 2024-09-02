@@ -6,13 +6,16 @@ WORKDIR /app
 COPY package*.json ./
 
 # Instalar las dependencias
-RUN npm install --production
+RUN npm install 
 
 # Copiar el resto de los archivos de la aplicación
 COPY . .
+
+# Instalar las dependencias
+RUN npm install 
 
 # Exponer el puerto en el que corre la aplicación
 EXPOSE 5173
 
 # Comando para ejecutar la aplicación
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "dev", "--", "--host"]
