@@ -8,6 +8,12 @@ ul {
     list-style: none;
 }
 
+button {
+    border: none;
+    background-color: none;
+    background: none;
+}
+
 body,#root{
     display: flex;
     flex-direction: column;
