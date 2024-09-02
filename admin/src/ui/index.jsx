@@ -1,5 +1,7 @@
 import Header from "./Header";
+import NotFound from "./NotFound"
 
 export {
-    Header
+    Header,
+    NotFound
 }

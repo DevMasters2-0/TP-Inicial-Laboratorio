@@ -32,11 +32,11 @@ const IncidenciaDetalle = () => {
     };
 
     if (loading) {
-        return <div>Loading...</div>;  
+        return <div className='text-error-not-found'>Loading...</div>;  
     }
 
     if (error) {
-        return <div>Error: {error.message}</div>; 
+        return <div className='text-error-not-found'>Error: {error.message}</div>; 
     }
 
     if (!incidencia) {

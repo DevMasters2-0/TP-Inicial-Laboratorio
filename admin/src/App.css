@@ -153,3 +153,38 @@ header {
 #paragraph{
   font-size: 24px;
 }
+
+
+
+/** Not Found Page **/
+.not-found-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.not-found-title {
+  font-size: 6rem;
+  margin: 0;
+  color: #e74c3c; /* Red color for emphasis */
+}
+
+.not-found-message {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
+
+.not-found-link {
+  font-size: 1.2rem;
+  color: #3498db; /* Blue color for the link */
+  text-decoration: none;
+}
+
+.not-found-link:hover {
+  text-decoration: underline;
+}

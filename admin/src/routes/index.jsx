@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Heatmap, IncidenciaDetalle, Incidencias } from "../components";
 import Dashboard from "../components/Dashboard";
+import { NotFound } from "../ui";
 
 const Router = () => {
   return (
@@ -13,6 +14,8 @@ const Router = () => {
           <Route path="incidencias" element={<Incidencias />} />
           <Route path="incidencias/:id" element={<IncidenciaDetalle />} />
         </Route>
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
