@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS incidencia (
-    incidencia_id INTEGER PRIMARY KEY,
+    incidencia_id INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre TEXT,
     dni TEXT,
     email TEXT,

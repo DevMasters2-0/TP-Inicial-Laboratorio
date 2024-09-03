@@ -55,7 +55,6 @@ import { Estado, Tema, NivelDeRiesgo } from '../../models/estados.models';
   
     // Get data from request body
     const {
-      id,
       nombre,
       email,
       tema,
@@ -69,10 +68,6 @@ import { Estado, Tema, NivelDeRiesgo } from '../../models/estados.models';
     const errors = [];
   
     // Valincidencia_idate data
-    if (!id) {
-      errors.push('incidencia_id is required');
-    }
-  
     if (!nombre) {
       errors.push('nombre is required');
     }
