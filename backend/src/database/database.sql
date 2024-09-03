@@ -35,9 +35,13 @@ CREATE TABLE IF NOT EXISTS registro_incidencia (
 );
 
 INSERT OR IGNORE INTO incidencia (incidencia_id, nombre, dni, email, tema, nivelDeRiesgo, localidad, descripcion, fechaDeCreacion, latitud, longitud, estado, image_url) VALUES
-(1, 'David cañete', '12345678A', 'juan.perez@test.com', 'piso roto', 'moderado', 'San Miguel', 'El piso de la cocina está roto y necesita reparación.', '2024-08-31T12:00:00Z', -34.5898, -58.4444, 'En Revisión', ""),
-(2, 'German Lucero','87654321B', 'ana.gomez@test.com', 'calle', 'bajo', 'Polvorines', 'La calle necesita limpieza.', '2024-08-31T12:00:00Z', -34.5900, -58.4450, 'Completado', ""),
-(3, 'Francisco Gottig','13579246C', 'luis.fernandez@test.com', 'alumbrado', 'urgente', 'Jose C Paz', 'El alumbrado público no funciona en la calle principal.', '2024-08-31T12:00:00Z', -34.5902, -58.4460, 'Anulado', ""),
-(4, 'Ignacio Tula','23456789B', 'ana.fernandez@ungs.edu.ar', 'piso roto', 'moderado', 'Polvorines', 'Varios estudiantes y docentes están experimentando tiempos de carga excesivos y errores al intentar acceder a los recursos educativos en la plataforma de e-learning.', '2024-08-31T12:00:00Z', -34.5898, -58.4444, 'En Revisión', "");
-
-  
+(1, 'David Cañete', '12345678A', 'juan.perez@test.com', 'piso roto', 'moderado', 'San Miguel', 'El piso de la cocina está roto y necesita reparación.', '2024-08-31T12:00:00Z', -34.5898, -58.4444, 'En Revisión', ''),
+(2, 'German Lucero', '87654321B', 'ana.gomez@test.com', 'calle', 'bajo', 'Polvorines', 'La calle necesita limpieza.', '2024-08-31T12:00:00Z', -34.5900, -58.4450, 'Completado', ''),
+(3, 'Francisco Gottig', '13579246C', 'luis.fernandez@test.com', 'alumbrado', 'urgente', 'Jose C Paz', 'El alumbrado público no funciona en la calle principal.', '2024-08-31T12:00:00Z', -34.5902, -58.4460, 'Anulado', ''),
+(4, 'Ignacio Tula', '23456789B', 'ana.fernandez@ungs.edu.ar', 'piso roto', 'moderado', 'Polvorines', 'El piso de un edificio necesita reparación urgente.', '2024-08-31T12:00:00Z', -34.5899, -58.4446, 'En Revisión', ''),
+(5, 'Laura García', '24681357D', 'laura.garcia@test.com', 'calle', 'alto', 'San Miguel', 'Hay baches grandes en la calle principal.', '2024-08-31T12:00:00Z', -34.5880, -58.4420, 'En Revisión', ''),
+(6, 'Javier Martínez', '35795146E', 'javier.martinez@test.com', 'alumbrado', 'bajo', 'Polvorines', 'La luz de la calle está parpadeando.', '2024-08-31T12:00:00Z', -34.5910, -58.4465, 'Completado', ''),
+(7, 'Patricia López', '46802457F', 'patricia.lopez@test.com', 'piso roto', 'bajo', 'Jose C Paz', 'El piso del baño está en mal estado.', '2024-08-31T12:00:00Z', -34.5875, -58.4480, 'En Revisión', ''),
+(8, 'Carlos Fernández', '57913568G', 'carlos.fernandez@test.com', 'calle', 'moderado', 'San Miguel', 'El pavimento de la calle está agrietado.', '2024-08-31T12:00:00Z', -34.5905, -58.4425, 'En Revisión', ''),
+(9, 'Sofia Martínez', '68024679H', 'sofia.martinez@test.com', 'alumbrado', 'alto', 'Polvorines', 'La calle está muy oscura por la falta de iluminación.', '2024-08-31T12:00:00Z', -34.5890, -58.4470, 'Anulado', ''),
+(10, 'Andrés López', '79135780I', 'andres.lopez@test.com', 'piso roto', 'bajo', 'Jose C Paz', 'El piso de la cocina está resquebrajado.', '2024-08-31T12:00:00Z', -34.5865, -58.4490, 'Completado', '');
