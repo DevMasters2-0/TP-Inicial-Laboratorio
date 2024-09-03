@@ -22,7 +22,6 @@ export interface IncidenciaCreateDTO {
 }
 
 export interface Incidencia extends IncidenciaCreateDTO {
-    id: number;
     nombre: string;
     dni: string;
     email: string;
@@ -52,7 +51,6 @@ export interface Incidencia extends IncidenciaCreateDTO {
   export const createIncidencia = (incidencia: IncidenciaCreateDTO): Incidencia => {
     const incidenciaCreated: Incidencia = {
       ...incidencia,
-      id: incidencia.id, 
       fechaDeCreacion: incidencia.fechaDeCreacion,
       estado: Estado.EN_REVISION,
       image_url: incidencia.image_url
