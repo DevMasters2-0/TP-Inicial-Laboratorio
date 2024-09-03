@@ -1,11 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import WebcamCapture from './components/CamaraWeb/WebcamCapture';
 
 // Componente principal
 function App() {
   const [userLocation, setUserLocation] = useState(null);
+  const [formData, setFormData] = useState({
+    nombre: '',
+    dni: '',
+    email: '',
+    localidad: '',
+    tema: '',
+    nivelDeRiesgo: '',
+    descripcion: '',
+    ubicacion: { latitud: 0, longitud: 0 },
+  });
 
+  // Opciones de selección
+  const [localidades, setLocalidades] = useState([]);
+  const [temas, setTemas] = useState([]);
+  const [riesgos, setRiesgos] = useState([]);
+
+  // Obtener ubicación del usuario
   const getUserLocation = () => {
     return new Promise((resolve, reject) => {
       if (navigator.geolocation) {
@@ -26,16 +42,46 @@ function App() {
     });
   };
 
-  const [formData, setFormData] = useState({
-    nombre: '',
-    dni: '',
-    email: '',
-    localidad: '',
-    tema: '',
-    nivelDeRiesgo: '',
-    descripcion: '',
-    ubicacion: { latitud: 0, longitud: 0 },
-  });
+  // Funciones para obtener opciones
+  const getLocalidades = async () => {
+    try {
+      const response = await fetch(`http://${import.meta.env.VITE_IP}/incidencias/localidades`);
+      if (!response.ok) throw new Error('Error fetching localidades');
+      const data = await response.json();
+      setLocalidades(data.localidades);
+    } catch (error) {
+      console.error('Error fetching localidades:', error);
+    }
+  };
+
+  const getTemas = async () => {
+    try {
+      const response = await fetch(`http://${import.meta.env.VITE_IP}/incidencias/temas`);
+      if (!response.ok) throw new Error('Error fetching temas');
+      const data = await response.json();
+      setTemas(data.temas);
+    } catch (error) {
+      console.error('Error fetching temas:', error);
+    }
+  };
+
+  const getRiesgos = async () => {
+    try {
+      const response = await fetch(`http://${import.meta.env.VITE_IP}/incidencias/riesgos`);
+      if (!response.ok) throw new Error('Error fetching riesgos');
+      const data = await response.json();
+      setRiesgos(data.nivelesDeRiesgo);
+    } catch (error) {
+      console.error('Error fetching riesgos:', error);
+    }
+  };
+
+  // useEffect para cargar las opciones
+  useEffect(() => {
+    getLocalidades();
+    getTemas();
+    getRiesgos();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,7 +103,7 @@ function App() {
       }
       console.log('Form submitted:', formData);
 
-      const response = await fetch(`http://${import.meta.env.VITE_IP}/incidencias`, { //
+      const response = await fetch(`http://${import.meta.env.VITE_IP}/incidencias`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -135,7 +181,7 @@ function App() {
           <div className='form-group'>
             <label htmlFor='dni'>DNI</label>
             <input
-              type='number'
+              type='text'
               id='dni'
               name='dni'
               value={formData.dni}
@@ -156,36 +202,51 @@ function App() {
           </div>
           <div className='form-group'>
             <label htmlFor='localidad'>Localidad</label>
-            <input
-              type='text'
+            <select
               id='localidad'
               name='localidad'
               value={formData.localidad}
               onChange={handleChange}
               required
-            />
+            >
+              {localidades.length > 0 && localidades.map((option, index)  => (
+                <option key={index} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
           </div>
           <div className='form-group'>
             <label htmlFor='tema'>Tema</label>
-            <input
-              type='text'
+            <select
               id='tema'
               name='tema'
               value={formData.tema}
               onChange={handleChange}
               required
-            />
+            >
+              {temas.length > 0 && temas.map((option, index)  => (
+                <option key={index} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
           </div>
           <div className='form-group'>
             <label htmlFor='nivelDeRiesgo'>Riesgo</label>
-            <input
-              type='text'
+            <select
               id='nivelDeRiesgo'
               name='nivelDeRiesgo'
               value={formData.nivelDeRiesgo}
               onChange={handleChange}
               required
-            />
+            >
+              {riesgos.length > 0 && riesgos.map((option, index) => (
+                <option key={index} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
           </div>
           <div className='form-group'>
             <label htmlFor='descripcion'>Descripcion</label>
@@ -198,7 +259,7 @@ function App() {
               required
             />
           </div>
-          <button type='submit' className='submit-button' onClick={handleSubmit}>Submit</button>
+          <button type='submit' className='submit-button'>Submit</button>
         </form>
       </div>
     </main>
