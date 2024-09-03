@@ -87,7 +87,7 @@ class DatabaseWrapper {
 
   crearIncidencia(incidencia: Incidencia){
     
-    this.db.run("INSERT INTO incidencia (incidencia_id, nombre, dni, email, tema, nivelDeRiesgo, localidad, descripcion, fechaDeCreacion, latitud, longitud, estado, image_url) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)",[incidencia.id, incidencia.nombre, incidencia.dni, incidencia.email, incidencia.tema,incidencia.nivelDeRiesgo, incidencia.localidad, incidencia.descripcion, incidencia.fechaDeCreacion, incidencia.ubicacion.latitud, incidencia.ubicacion.longitud, incidencia.estado, incidencia.image_url], 
+    this.db.run("INSERT INTO incidencia (incidencia_id, nombre, dni, email, tema, nivelDeRiesgo, localidad, descripcion, fechaDeCreacion, latitud, longitud, estado, image_url) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)",[incidencia.id, incidencia.nombre, incidencia.dni, incidencia.email, incidencia.tema,incidencia.nivelDeRiesgo, incidencia.localidad, incidencia.descripcion, new Date(), incidencia.ubicacion.latitud, incidencia.ubicacion.longitud, 'En Revisión', incidencia.image_url], 
       function error(err:Error) {
         if (err) {
           console.error("Error al crear la incidencia", err);
