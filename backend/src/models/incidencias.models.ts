@@ -51,7 +51,7 @@ export interface Incidencia extends IncidenciaCreateDTO {
   export const createIncidencia = (incidencia: IncidenciaCreateDTO): Incidencia => {
     const incidenciaCreated: Incidencia = {
       ...incidencia,
-      fechaDeCreacion: incidencia.fechaDeCreacion,
+      fechaDeCreacion: new Date(),
       estado: Estado.EN_REVISION,
       image_url: incidencia.image_url
     };

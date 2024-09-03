@@ -57,7 +57,7 @@ function App() {
       }
       console.log('Form submitted:', formData);
 
-      const response = await fetch(`http://${import.meta.env.VITE_IP}/incidencias`, {
+      const response = await fetch(`http://${import.meta.env.VITE_IP}/incidencias`, { //
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -198,7 +198,7 @@ function App() {
               required
             />
           </div>
-          <button type='submit' className='submit-button'>Submit</button>
+          <button type='submit' className='submit-button' onClick={handleSubmit}>Submit</button>
         </form>
       </div>
     </main>
