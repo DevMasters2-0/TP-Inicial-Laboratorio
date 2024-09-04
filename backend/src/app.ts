@@ -5,10 +5,17 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import router from './routes';
 import os from 'os';
+import dotenv from 'dotenv';
+
+
+
+dotenv.config({
+  path: `.env.${process.env.NODE_ENV}` // Carga el archivo .env correspondiente al entorno
+});
 
 // Create Express server
 const app = express(); // New express instance
-const port = 3000; // Port number
+const port = process.env.API_PORT || 3000; // Port number
 
 // Express configuration
 app.use(cors()); // Enable CORS
@@ -22,7 +29,7 @@ app.use('/', router);
 // Start Express server
 app.listen(port, () => {
   // Callback cuando el servidor se inicia correctamente
-  console.log(`Servidor iniciado en http://localhost:${port}`);
+  console.log(`Servidor iniciado en ${process.env.API_URL} en el puerto ${port}`);
 
   // Muestra la IP local para acceder desde otros dispositivos
   const networkInterfaces = os.networkInterfaces();

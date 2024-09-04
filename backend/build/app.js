@@ -17,7 +17,7 @@ app.use((0, morgan_1.default)('dev')); // Enable Morgan
 // Start Express server
 app.listen(port, () => {
     // Callback function when server is successfully started
-    console.log(`Server started at http://localhost:${port}`);
+    console.log(`Server started at ${import.meta.env.VITE_API_URL} | on port ${port}`);
 });
 // Endpoints
 app.get('/', (req, res) => {
