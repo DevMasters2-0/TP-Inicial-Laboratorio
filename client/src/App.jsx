@@ -45,7 +45,7 @@ function App() {
   // Funciones para obtener opciones
   const getLocalidades = async () => {
     try {
-      const response = await fetch(`http://${import.meta.env.VITE_IP}/incidencias/localidades`);
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/incidencias/localidades`);
       if (!response.ok) throw new Error('Error fetching localidades');
       const data = await response.json();
       setLocalidades(data.localidades);
@@ -56,7 +56,7 @@ function App() {
 
   const getTemas = async () => {
     try {
-      const response = await fetch(`http://${import.meta.env.VITE_IP}/incidencias/temas`);
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/incidencias/temas`);
       if (!response.ok) throw new Error('Error fetching temas');
       const data = await response.json();
       setTemas(data.temas);
@@ -67,7 +67,7 @@ function App() {
 
   const getRiesgos = async () => {
     try {
-      const response = await fetch(`http://${import.meta.env.VITE_IP}/incidencias/riesgos`);
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/incidencias/riesgos`);
       if (!response.ok) throw new Error('Error fetching riesgos');
       const data = await response.json();
       setRiesgos(data.nivelesDeRiesgo);
@@ -103,7 +103,7 @@ function App() {
       }
       console.log('Form submitted:', formData);
 
-      const response = await fetch(`http://${import.meta.env.VITE_IP}/incidencias`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/incidencias`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -209,7 +209,7 @@ function App() {
               onChange={handleChange}
               required
             >
-              {localidades.length > 0 && localidades.map((option, index)  => (
+              {localidades.length > 0 && localidades.map((option, index) => (
                 <option key={index} value={option}>
                   {option}
                 </option>
@@ -225,7 +225,7 @@ function App() {
               onChange={handleChange}
               required
             >
-              {temas.length > 0 && temas.map((option, index)  => (
+              {temas.length > 0 && temas.map((option, index) => (
                 <option key={index} value={option}>
                   {option}
                 </option>
