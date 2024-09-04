@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   backend:
-    image: ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-server:latest
+    image: ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-server-dev:latest
     container_name: nms-server
     ports:
       - "5175:3000"
@@ -10,13 +10,13 @@ services:
       - ./backend/mydatabase.sqlite:/app/mydatabase.sqlite
 
   admin:
-    image: ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-admin:latest
+    image: ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-admin-dev:latest
     container_name: nms-admin
     ports:
       - "5174:5173"
 
   client:
-    image: ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-client:latest
+    image: ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-client-dev:latest
     container_name: nms-client
     ports:
       - "5173:5173"
