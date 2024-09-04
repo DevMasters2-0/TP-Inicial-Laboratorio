@@ -7,19 +7,19 @@ const MapaPage = () => {
 
   useEffect(() => {
     const fetchHeatmapData = async () => {
-        try {
-            const response = await axios.get(`http://${import.meta.env.VITE_IP}/incidencias`);
-            setIncidencias(response.data.Incidencias);
-        } catch (error) {
-            console.error('Error fetching incidencias:', error);
-        }
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/incidencias`);
+        setIncidencias(response.data.Incidencias);
+      } catch (error) {
+        console.error('Error fetching incidencias:', error);
+      }
     };
 
     fetchHeatmapData();
   }, []);
 
   return (
-      <Heatmap data={incidencias} />
+    <Heatmap data={incidencias} />
   );
 };
 

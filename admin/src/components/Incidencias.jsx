@@ -9,7 +9,7 @@ export const Incidencias = () => {
     useEffect(() => {
         const fetchIncidencias = async () => {
             try {
-                const response = await axios.get(`http://${import.meta.env.VITE_IP}/incidencias`);
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/incidencias`);
                 setIncidencias(response.data.Incidencias);
             } catch (error) {
                 console.error('Error fetching incidencias:', error);

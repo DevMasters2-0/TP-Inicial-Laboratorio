@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';  
+import axios from 'axios';
 import './IncidenciaDetalle.css';
 import { useLocation, useNavigate, useParams } from 'react-router';
 
 const IncidenciaDetalle = () => {
     const navigate = useNavigate();
     const { id } = useParams();
-    const [incidencia, setIncidencia] = useState(null);  
-    const [loading, setLoading] = useState(true);  
-    const [error, setError] = useState(null);  
+    const [incidencia, setIncidencia] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchIncidencia = async () => {
             try {
-                const response = await axios.get(`http://${import.meta.env.VITE_IP}/incidencias/${id}`); 
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/incidencias/${id}`);
                 setIncidencia(response.data.Incidencia);
             } catch (error) {
                 setError(error);
@@ -22,7 +22,7 @@ const IncidenciaDetalle = () => {
             }
         };
 
-        if (id) { 
+        if (id) {
             fetchIncidencia();
         }
     }, [id]);
@@ -32,15 +32,15 @@ const IncidenciaDetalle = () => {
     };
 
     if (loading) {
-        return <div className='text-error-not-found'>Loading...</div>;  
+        return <div className='text-error-not-found'>Loading...</div>;
     }
 
     if (error) {
-        return <div className='text-error-not-found'>Error: {error.message}</div>; 
+        return <div className='text-error-not-found'>Error: {error.message}</div>;
     }
 
     if (!incidencia) {
-        return <div>No Incidencia found</div>;  
+        return <div>No Incidencia found</div>;
     }
 
     return (
