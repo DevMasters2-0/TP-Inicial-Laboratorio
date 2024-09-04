@@ -15,4 +15,4 @@ COPY . .
 EXPOSE 5173
 
 # Comando para ejecutar la aplicación
-CMD ["npm", "run", "staging"]
+CMD ["npm", "run", "stage"]
