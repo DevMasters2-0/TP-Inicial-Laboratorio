@@ -4,6 +4,7 @@ services:
   backend:
     image: ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-server-dev:latest
     container_name: nms-server
+    restart: unless-stopped
     ports:
       - "5175:3000"
     volumes:
@@ -12,12 +13,14 @@ services:
   admin:
     image: ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-admin-dev:latest
     container_name: nms-admin
+    restart: unless-stopped
     ports:
       - "5174:5173"
 
   client:
     image: ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-client-dev:latest
     container_name: nms-client
+    restart: unless-stopped
     ports:
       - "5173:5173"
 
