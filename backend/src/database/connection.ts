@@ -3,6 +3,8 @@ import { readFileSync } from 'fs';
 import Database from 'sqlite3';
 import sqlite3 from 'sqlite3';
 import { Incidencia } from '../models/incidencias.models';
+import { User } from '../models/users.models';
+import { encriptSHA256 } from '../utils/validations/hashing';
 
 export interface DatabaseSQL{
   getIncidencias():any;
@@ -215,6 +217,45 @@ class DatabaseWrapper {
       });
       
     });
+  }
+
+  async createAdmin(user:User): Promise<Error | void> {
+    return new Promise((resolve, reject) => { 
+
+      this.db.run("INSERT INTO administrator(user, pass, nombre, apellido, url_perfil, fecha_creacion, Rol) VALUES(?,?,?,?,?,?,?)",[user.username, encriptSHA256(user.password), user.nombre, user.apellido, user.imagenDePerfil, user.fechaDeCreacion, user.role], (err:Error) => {
+        if (err) {
+          console.error("Error al insertar new admin", err);
+          reject(err);
+        }else{
+          console.log("Admin insertado con exito");
+          resolve();
+        }
+      });
+      
+     });
+    
+  }
+
+  async getUser(user: User): Promise<User | Error> {
+    
+
+    return new Promise((resolve, reject) => {
+      
+      this.db.get("SELECT * FROM administrator WHERE user=? AND pass=?",[user.username, encriptSHA256(user.password)], 
+        (err:Error, row: User) =>{
+
+        if ((typeof row === 'undefined')) {
+          reject();
+        }
+        if(err){
+          reject(err);
+        }
+        else{
+          resolve(row);
+        }
+      });
+    });
+    
   }
   
   close(){

@@ -3,16 +3,15 @@ export enum Role {
 }
 
 export interface User {
-  id: number;
+  id: number | null;
   username: string;
   password: string;
   nombre: string;
   apellido: string;
-  imagenDePerfil: string; // URL o ruta de la imagen de perfil
+  imagenDePerfil: string | null; // URL o ruta de la imagen de perfil
   fechaDeCreacion: Date; // Fecha de creación, se genera automáticamente
-  role: Role; // Campo para el rol del usuario
+  role: Role | null; // Campo para el rol del usuario
 }
-
 
 const users: Array<User> = [
   {
@@ -73,3 +72,12 @@ export const deleteUser = (id: number): void => {
   const index = users.findIndex(u => u.id === id);
   users.splice(index, 1);
 };
+
+export const createUserDB = (user: User): User => {
+
+  const UserCreated: User = {
+    ...user,
+  };
+  UserCreated.fechaDeCreacion = new Date();
+  return UserCreated;
+}

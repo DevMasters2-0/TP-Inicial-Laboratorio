@@ -1,7 +1,10 @@
 import { Request, Response } from 'express';
-import { User, getUserByUsername, getUsers } from '../models/users.models';
-
-export const loginController = (req: Request, res: Response): void => {
+import { User, createUserDB, getUserByUsername, getUsers } from '../models/users.models';
+import { validateUser } from '../utils/validations/users.validations';
+import db from '../database/connection';
+import { equalsHash } from '../utils/validations/hashing';
+/** 
+export const loginControllerV2 = (req: Request, res: Response): void => {
 
     const { username, password } = req.body;
 
@@ -24,4 +27,35 @@ export const loginController = (req: Request, res: Response): void => {
     } catch (error) {
         res.status(500).send('Error en el inicio de sesión');
     }
+}*/
+
+export async function loginController(req: Request, res: Response) {
+    const user = req.body;
+    let createdUser = createUserDB(user);
+
+    try {
+        let user = await db.getUser(createdUser);
+        res.status(200).json({user});
+    } catch (error) {
+        res.status(404).send("usuario no encontrado");
+    }
+   
+   
 }
+
+export function createController(req: Request, res: Response) {
+    const user = req.body;
+    let createdUser = createUserDB(user);
+
+    validateUser(req, res, async () => {
+        try {
+            await db.createAdmin(createdUser);
+            res.status(200).send('admin creado con exito');
+        } catch (err) {
+            res.status(400).send('Error al crear el admin, bad request');
+        }
+        
+    });
+}
+
+

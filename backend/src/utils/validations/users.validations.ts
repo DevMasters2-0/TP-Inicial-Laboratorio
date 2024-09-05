@@ -6,18 +6,14 @@ export const validateUser = (
   next: NextFunction
 ): void => {
   // Get data from request body
-  const { id, username, password } = req.body;
+  const { username, password, nombre, apellido } = req.body;
 
-  // Create an array to store errors
   const errors: string[] = [];
 
   // Validate data
-  if (!id) {
-    errors.push('ID is required');
-  }
 
   if (!username) {
-    errors.push('Name is required');
+    errors.push('UserName is required');
   }
 
   if (!password) {
@@ -29,6 +25,13 @@ export const validateUser = (
     }
   }
 
+  if (!nombre) {
+    errors.push('name is required');
+  }
+
+  if (!apellido) {
+    errors.push('name is required');
+  }
   // If there are errors
   if (errors.length > 0) {
     res.status(422).json({

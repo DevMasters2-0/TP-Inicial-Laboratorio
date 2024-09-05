@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS incidencia (
 
 CREATE TABLE IF NOT EXISTS administrator (
     admin_id INTEGER PRIMARY KEY,
-    user TEXT,
+    user TEXT UNIQUE,
     pass TEXT,
     nombre TEXT,
     apellido TEXT,
@@ -53,7 +53,7 @@ INSERT OR IGNORE INTO incidencia (incidencia_id, nombre, dni, email, tema, nivel
 
 INSERT OR IGNORE INTO administrator (admin_id, user, pass, nombre, apellido, url_perfil, fecha_creacion, Rol)
 VALUES 
-(1, 'admin01', 'pass123', 'Miguel Angel', 'Gabrielli', 'https://miweb.com/perfil/gmiguel', '2024-09-05', 'Admin'),
-(2, 'admin02', 'adminpass', 'Ezequiel', 'Cañete', 'https://miweb.com/perfil/eca', '2024-09-04', 'Admin'),
-(3, 'admin03', 'securepass', 'Ignacio', 'Tula', 'https://miweb.com/perfil/itula', '2024-09-03', 'Admin'),
-(4, 'admin04', 'mypassword', 'German', 'Lucero', 'https://miweb.com/perfil/glucero', '2024-09-02', 'Admin');
+(1, 'admin01', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'Miguel Angel', 'Gabrielli', 'https://miweb.com/perfil/gmiguel', '2024-08-31T12:00:00Z', 'Admin'),
+(2, 'admin02', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'Ezequiel', 'Cañete', 'https://miweb.com/perfil/eca', '2024-08-31T12:00:00Z', 'Admin'),
+(3, 'admin03', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'Ignacio', 'Tula', 'https://miweb.com/perfil/itula', '2024-08-31T12:00:00Z', 'Admin'),
+(4, 'admin04', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'German', 'Lucero', 'https://miweb.com/perfil/glucero', '2024-08-31T12:00:00Z', 'Admin');
