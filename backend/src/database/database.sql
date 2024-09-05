@@ -17,7 +17,12 @@ CREATE TABLE IF NOT EXISTS incidencia (
 CREATE TABLE IF NOT EXISTS administrator (
     admin_id INTEGER PRIMARY KEY,
     user TEXT,
-    pass TEXT
+    pass TEXT,
+    nombre TEXT,
+    apellido TEXT,
+    url_perfil TEXT,
+    fecha_creacion TEXT,
+    Rol TEXT
 );
 
 CREATE TABLE IF NOT EXISTS registro (
@@ -45,3 +50,10 @@ INSERT OR IGNORE INTO incidencia (incidencia_id, nombre, dni, email, tema, nivel
 (8, 'Carlos Fernández', '57913568G', 'carlos.fernandez@test.com', 'calle', 'moderado', 'San Miguel', 'El pavimento de la calle está agrietado.', '2024-08-31T12:00:00Z', -34.5905, -58.4425, 'En Revisión', ''),
 (9, 'Sofia Martínez', '68024679H', 'sofia.martinez@test.com', 'alumbrado', 'alto', 'Polvorines', 'La calle está muy oscura por la falta de iluminación.', '2024-08-31T12:00:00Z', -34.5890, -58.4470, 'Anulado', ''),
 (10, 'Andrés López', '79135780I', 'andres.lopez@test.com', 'piso roto', 'bajo', 'Jose C Paz', 'El piso de la cocina está resquebrajado.', '2024-08-31T12:00:00Z', -34.5865, -58.4490, 'Completado', '');
+
+INSERT OR IGNORE INTO administrator (admin_id, user, pass, nombre, apellido, url_perfil, fecha_creacion, Rol)
+VALUES 
+(1, 'admin01', 'pass123', 'Miguel Angel', 'Gabrielli', 'https://miweb.com/perfil/gmiguel', '2024-09-05', 'Admin'),
+(2, 'admin02', 'adminpass', 'Ezequiel', 'Cañete', 'https://miweb.com/perfil/eca', '2024-09-04', 'Admin'),
+(3, 'admin03', 'securepass', 'Ignacio', 'Tula', 'https://miweb.com/perfil/itula', '2024-09-03', 'Admin'),
+(4, 'admin04', 'mypassword', 'German', 'Lucero', 'https://miweb.com/perfil/glucero', '2024-09-02', 'Admin');

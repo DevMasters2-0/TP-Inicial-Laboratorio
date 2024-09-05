@@ -217,7 +217,6 @@ class DatabaseWrapper {
     });
   }
   
-
   close(){
     this.db.close();
   }

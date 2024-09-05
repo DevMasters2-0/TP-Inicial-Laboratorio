@@ -8,7 +8,7 @@
     "build": "npx tsc -p .",
     "start": "NODE_ENV=production node .",
     "stage": "NODE_ENV=staging npx tsx src/app.ts",
-    "dev": "NODE_ENV=development npx tsx src/app.ts",
+    "dev": "set NODE_ENV=development && npx tsx src/app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
