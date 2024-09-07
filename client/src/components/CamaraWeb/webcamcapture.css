@@ -71,3 +71,19 @@
     background-color: red; 
   }
   
+  .btn-volver-sacar-foto {
+    position: absolute;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: solid 1px white;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    right: 2rem;
+    bottom: 1rem;
+    cursor: pointer;
+  }
+
+  .btn-volver-sacar-foto:hover {
+    background-color: rgba(0, 0, 0, 0.754);
+  }

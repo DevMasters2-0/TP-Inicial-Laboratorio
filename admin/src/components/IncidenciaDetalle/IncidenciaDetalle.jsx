@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './IncidenciaDetalle.css';
-import { useLocation, useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const IncidenciaDetalle = () => {
     const navigate = useNavigate();
@@ -32,7 +32,7 @@ const IncidenciaDetalle = () => {
     };
 
     if (loading) {
-        return <div className='text-error-not-found'>Loading...</div>;
+        return <div className='text-error-not-found'>Cargando...</div>;
     }
 
     if (error) {
@@ -40,35 +40,64 @@ const IncidenciaDetalle = () => {
     }
 
     if (!incidencia) {
-        return <div>No Incidencia found</div>;
+        return <div>No se encontró la incidencia</div>;
     }
 
     return (
         <div className="incidencias-container-modal">
             <div className="incidencia-modal">
-                <div className="campo">ID</div>
-                <div className="dato">{incidencia.incidencia_id}</div>
-                <div className="campo">NOMBRE</div>
-                <div className="dato">{incidencia.nombre}</div>
-                <div className="campo">DNI</div>
-                <div className="dato">{incidencia.dni}</div>
-                <div className="campo">EMAIL</div>
-                <div className="dato">{incidencia.email}</div>
-                <div className="campo">TEMA</div>
-                <div className="dato">{capitalize(incidencia.tema)}</div>
-                <div className="campo">RIESGO</div>
-                <div className="dato">{capitalize(incidencia.nivelDeRiesgo)}</div>
-                <div className="campo">LOCALIDAD</div>
-                <div className="dato">{capitalize(incidencia.localidad)}</div>
-                <div className="campo">ESTADO</div>
-                <div className="dato">{incidencia.estado.toUpperCase()}</div>
-                <div className="campo">DESCRIPCION</div>
-                <div className="dato">{incidencia.descripcion}</div>
-                <div className="campo">FECHA DE CREACION</div>
-                <div className="dato">{formatDate(incidencia.fechaDeCreacion)}</div>
+                <div className="detalle">
+                    <div className="campo-container">
+                        <div className="campo">ID</div>
+                        <div className="dato">{incidencia.incidencia_id}</div>
+
+                    </div>
+                    <div className="campo-container">
+                        <div className="campo">NOMBRE</div>
+                        <div className="dato">{incidencia.nombre}</div>
+                    </div>
+                    <div className="campo-container">
+                        <div className="campo">DNI</div>
+                        <div className="dato">{incidencia.dni}</div>
+                    </div>
+                    <div className="campo-container">
+                        <div className="campo">EMAIL</div>
+                        <div className="dato">{incidencia.email}</div>
+                    </div>
+                    <div className="campo-container">
+                        <div className="campo">TEMA</div>
+                        <div className="dato">{capitalize(incidencia.tema)}</div>
+                    </div>
+                    <div className="campo-container">
+                        <div className="campo">RIESGO</div>
+                        <div className="dato">{capitalize(incidencia.nivelDeRiesgo)}</div>
+                    </div>
+                    <div className="campo-container">
+                        <div className="campo">LOCALIDAD</div>
+                        <div className="dato">{capitalize(incidencia.localidad)}</div>
+                    </div>
+                    <div className="campo-container">
+                        <div className="campo">ESTADO</div>
+                        <div className="dato">{incidencia.estado.toUpperCase()}</div>
+                    </div>
+                    <div className="campo-container">
+                        <div className="campo">DESCRIPCION</div>
+                        <div className="dato" style={{maxWidth: '200px'}}>{incidencia.descripcion}</div>
+                    </div>
+
+                    <div className="campo-container">
+                        <div className="campo">FECHA DE CREACION</div>
+                        <div className="dato">{formatDate(incidencia.fechaDeCreacion)}</div>
+                    </div>
+                </div>
+                {incidencia.image_url && (
+                    <div className="imagen-container">
+                        <img src={incidencia.image_url} alt="Imagen de Incidencia" style={{ width: '100%', borderRadius: '0.4rem' }} />
+                    </div>
+                )}
             </div>
             <div className='centrar-boton'>
-                <button onClick={onBack} id='boton-volver'> Volver</button>
+                <button onClick={onBack} id='boton-volver'>Volver</button>
             </div>
         </div>
     );

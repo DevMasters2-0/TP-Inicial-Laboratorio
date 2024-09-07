@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import WebcamCapture from './components/CamaraWeb/WebcamCapture';
 
-// Componente principal
 function App() {
   const [userLocation, setUserLocation] = useState(null);
   const [formData, setFormData] = useState({
@@ -14,14 +13,14 @@ function App() {
     nivelDeRiesgo: '',
     descripcion: '',
     ubicacion: { latitud: 0, longitud: 0 },
+    image_url: '' 
   });
 
-  // Opciones de selección
   const [localidades, setLocalidades] = useState([]);
   const [temas, setTemas] = useState([]);
   const [riesgos, setRiesgos] = useState([]);
+  const [viewCamara, setViewCamara] = useState(false);
 
-  // Obtener ubicación del usuario
   const getUserLocation = () => {
     return new Promise((resolve, reject) => {
       if (navigator.geolocation) {
@@ -42,7 +41,6 @@ function App() {
     });
   };
 
-  // Funciones para obtener opciones
   const getLocalidades = async () => {
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/incidencias/localidades`);
@@ -76,7 +74,6 @@ function App() {
     }
   };
 
-  // useEffect para cargar las opciones
   useEffect(() => {
     getLocalidades();
     getTemas();
@@ -123,10 +120,36 @@ function App() {
     }
   };
 
-  const [viewCamara, setViewCamara] = useState(false);
-
   const handleToggleCamara = () => {
     setViewCamara(!viewCamara);
+  };
+
+  const handleCapture = async (imageSrc) => {
+    try {
+      const blob = await fetch(imageSrc).then(res => res.blob());
+      const file = new File([blob], 'captured.jpg', { type: 'image/jpeg' });
+
+      const formData = new FormData();
+      formData.append('image', file);
+
+      const response = await fetch(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_API_IMAGE}`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          image_url: data.data.url
+        }));
+        console.log('Image uploaded:', data.data.url);
+      } else {
+        console.error('Error uploading image:', data.error.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
@@ -154,7 +177,7 @@ function App() {
 
       {viewCamara ? (
         <div className='camara-container'>
-          <WebcamCapture />
+          <WebcamCapture onCapture={handleCapture} />
           <button className="toggle-camara-btn abierta" onClick={handleToggleCamara}>
             Cerrar Camara
           </button>
@@ -258,6 +281,10 @@ function App() {
               placeholder='Enter descripcion'
               required
             />
+          </div>
+          <div className='form-group' style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+            <label htmlFor='image_url'>Imagen de la incidencia</label>
+            {formData.image_url && <img src={formData.image_url} alt="Subida" style={{ width: '70%', borderRadius: '0.5rem' }} />}
           </div>
           <button type='submit' className='submit-button'>Submit</button>
         </form>
