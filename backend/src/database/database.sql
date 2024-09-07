@@ -25,19 +25,6 @@ CREATE TABLE IF NOT EXISTS administrator (
     Rol TEXT
 );
 
-CREATE TABLE IF NOT EXISTS registro (
-    registro_id INTEGER PRIMARY KEY,
-    fecha TEXT,
-    cantidad_incidencias INTEGER
-);
-
-CREATE TABLE IF NOT EXISTS registro_incidencia (
-    registro_incidencia_id INTEGER PRIMARY KEY,
-    register_id INTEGER,
-    incident_id INTEGER,
-    FOREIGN KEY(register_id) REFERENCES registro(registro_id),
-    FOREIGN KEY(incident_id) REFERENCES incidencia(incidencia_id)
-);
 
 INSERT OR IGNORE INTO incidencia (incidencia_id, nombre, dni, email, tema, nivelDeRiesgo, localidad, descripcion, fechaDeCreacion, latitud, longitud, estado, image_url) VALUES
 (1, 'David Cañete', '12345678A', 'juan.perez@test.com', 'piso roto', 'moderado', 'San Miguel', 'El piso de la cocina está roto y necesita reparación.', '2024-08-31T12:00:00Z', -34.5898, -58.4444, 'En Revisión', ''),

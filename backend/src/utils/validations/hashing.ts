@@ -6,8 +6,6 @@ export function encriptSHA256(data: string): string {
     return hash.digest('hex');
 }
 
-export function equalsHash(data: string, dataOther:string) {
-    return data == dataOther;
-}
+
 
 
