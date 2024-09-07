@@ -20,7 +20,7 @@ const Router = () => {
         <Route path="/" element={<Navigate to="/admin" replace />} />
 
         <Route path="/admin" element={
-          isAuthenticated ? <Dashboard /> : <Navigate to="/login" />
+          isAuthenticated ? <Dashboard isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} /> : <Navigate to="/login" />
         }>
           <Route index element={<MapaPage />} /> {/* Default route within /admin */}
           <Route path="incidencias" element={<Incidencias />} />

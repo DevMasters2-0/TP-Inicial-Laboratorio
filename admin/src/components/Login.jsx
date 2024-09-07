@@ -15,8 +15,9 @@ const Login = ({ setIsAuthenticated }) => {
         console.log("Form enviado")
         axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, { username, password })
             .then(response => {
+
                 if (response.status === 200) {
-                    setIsAuthenticated(true);
+                    setIsAuthenticated(response.data.user);
                     navigate("/admin");
                 } else {
                     setError("Credenciales incorrectas");
