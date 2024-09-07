@@ -5,6 +5,8 @@ import sqlite3 from 'sqlite3';
 import { Incidencia } from '../models/incidencias.models';
 import { User } from '../models/users.models';
 import { encriptSHA256 } from '../utils/validations/hashing';
+import emailController, { emailSubject } from '../controllers/email.controllers';
+import { Estado } from '../models/estados.models';
 
 export interface DatabaseSQL{
   getIncidencias():any;
@@ -87,18 +89,24 @@ class DatabaseWrapper {
     })
   }
 
-  crearIncidencia(incidencia: Incidencia){
-    this.db.run("INSERT INTO incidencia (incidencia_id, nombre, dni, email, tema, nivelDeRiesgo, localidad, descripcion, fechaDeCreacion, latitud, longitud, estado, image_url) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)",
-      [incidencia.id, incidencia.nombre, incidencia.dni, incidencia.email, incidencia.tema, incidencia.nivelDeRiesgo, incidencia.localidad, incidencia.descripcion, incidencia.fechaDeCreacion, incidencia.ubicacion.latitud, incidencia.ubicacion.longitud, incidencia.estado, incidencia.image_url], 
-      function (err: Error) {
-        if (err) {
-          console.error("Error al crear la incidencia", err);
-        } else {
-          console.log("Incidencia creada con éxito");
-          console.log(incidencia)
+  async crearIncidencia(incidencia: Incidencia): Promise<Error | null>{
+
+    return new Promise<Error | null>((resolve, reject) => {
+      this.db.run("INSERT INTO incidencia (incidencia_id, nombre, dni, email, tema, nivelDeRiesgo, localidad, descripcion, fechaDeCreacion, latitud, longitud, estado, image_url) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        [incidencia.id, incidencia.nombre, incidencia.dni, incidencia.email, incidencia.tema, incidencia.nivelDeRiesgo, incidencia.localidad, incidencia.descripcion, incidencia.fechaDeCreacion, incidencia.ubicacion.latitud, incidencia.ubicacion.longitud, incidencia.estado, incidencia.image_url], 
+        function (err: Error) {
+          if (err) {
+            console.error("Error al crear la incidencia", err);
+            reject(err);
+          } else {
+            console.log("Incidencia creada con éxito");
+            console.log(incidencia);
+            resolve(null);
+          }
         }
-      }
-    );
+      );
+    })
+   
   };
 
   deleteIncidenciaById(id: number){
@@ -113,16 +121,26 @@ class DatabaseWrapper {
     });
   }
 
-  async updateIncidenciaById(id:number, incidencia:Incidencia){
-    this.db.run("UPDATE incidencia SET tema = $tema, estado = $estado  WHERE incidencia_id = $id", {$tema: incidencia.tema, $estado: incidencia.estado, $id: incidencia.id}, (err:Error) => {
-      if (err) {
-        console.error("Error al hacer el update de la incidencia", err);
-      }
-      else{
-        console.log("Incidencia mejorada con exito");
-      }
+  async updateIncidenciaById(id:number, incidencia:Incidencia): Promise<Error | Incidencia>{
+
+    return new Promise<Error | Incidencia>((resolve, reject) => {
+      this.db.run("UPDATE incidencia SET tema = $tema, estado = $estado  WHERE incidencia_id = $id", {$tema: incidencia.tema, $estado: incidencia.estado, $id: incidencia.id}, async (err:Error, row:Incidencia) => {
+        if (err) {
+          console.error("Error al hacer el update de la incidencia", err);
+          reject(err)
+        }
+        else{
+          console.log("Incidencia mejorada con exito");
+
+          let inci = await this.getIncidenciaById(incidencia.id);
+          resolve(inci);
+         
+        }
+      });
     });
+    
   }
+
 
  //Filtros particulares
   async getIncidenciasByTema(tema:string): Promise<Array<Incidencia>>{

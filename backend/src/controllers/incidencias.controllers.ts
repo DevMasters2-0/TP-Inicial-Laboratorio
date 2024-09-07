@@ -8,6 +8,7 @@ import {
 } from '../models/incidencias.models';
 import { Estado, Localidad, NivelDeRiesgo, Tema } from '../models/estados.models';
 import db from '../database/connection';
+import emailController, { emailSubject } from './email.controllers';
 
 
 // *** Manipular base de datos ***
@@ -26,28 +27,44 @@ export const getIncidenciaByIdController = async (req: Request, res: Response): 
     }
 };
 
-export const createIncidenciaController = (req: Request, res: Response): void => {
+export const createIncidenciaController = async (req: Request, res: Response) => {
    
     const incidencia: IncidenciaCreateDTO = req.body;
     const incidenciaCreated: Incidencia = createIncidencia(incidencia);
 
-    db.crearIncidencia(incidenciaCreated);
-    res.status(201).json({
-        message: 'Incidencia created',
-        incidenciaCreated,
-    });
+    let response = await db.crearIncidencia(incidenciaCreated);
+
+    if (response === null) {
+        res.status(201).json({
+            message: 'Incidencia created',
+            incidenciaCreated,
+        });
+        await emailController.send(emailSubject.CREATE, incidenciaCreated);
+    }
+    else{
+        res.status(404).json({ message: 'error al crear la incidencia' });
+    }
+   
     
 };
 
-export const updateIncidenciaController = (req: Request, res: Response): void => {
+export const updateIncidenciaController = async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
     const IncidenciaUpdate: Incidencia = req.body;
     IncidenciaUpdate.id = id;
-    db.updateIncidenciaById(id, IncidenciaUpdate)
-    res.status(200).json({
-        message: 'Incidencia updated',
-        Incidencia: IncidenciaUpdate,
-    });
+    let response = await db.updateIncidenciaById(id, IncidenciaUpdate);
+
+    if (response instanceof Error) {
+        res.status(404).json({ message: 'error al mejorar la incidencia' });    
+    }
+    else{
+        res.status(200).json({
+            message: 'Incidencia updated',
+            Incidencia: IncidenciaUpdate,
+        });
+        if (IncidenciaUpdate.estado === Estado.COMPLETADO) emailController.send(emailSubject.FINALIZE, response);
+    }
+   
 };
 
 export const deleteIncidenciaController = (req: Request, res: Response): void => {
