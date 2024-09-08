@@ -31,6 +31,10 @@ const IncidenciaDetalle = () => {
         navigate("/admin/incidencias");
     };
 
+    const onModificacion = () => {
+        navigate(`/admin/incidencias/${incidencia.incidencia_id}/modificar`)
+    };
+
     if (loading) {
         return <div className='text-error-not-found'>Cargando...</div>;
     }
@@ -96,8 +100,9 @@ const IncidenciaDetalle = () => {
                     </div>
                 )}
             </div>
-            <div className='centrar-boton'>
+            <div className='contenedor-botones'>
                 <button onClick={onBack} id='boton-volver'>Volver</button>
+                <button onClick={onModificacion} id='boton-modificar'>Modificar</button>
             </div>
         </div>
     );

@@ -19,7 +19,6 @@ export const Incidencias = () => {
     }, []);
 
     const onDetalleClick = (incidencia) => {
-        console.log(incidencia)
         navigate(`/admin/incidencias/${incidencia.incidencia_id}`)
     };
 
@@ -39,7 +38,7 @@ export const Incidencias = () => {
 
                     <div className="incidencias-list">
                         {incidencias.map((incidencia) => (
-                            <div className='incidencia' key={incidencia.id}>
+                            <div className='incidencia' key={incidencia.incidencia_id}>
                                 <div className="incidencia-nombre">
                                     {incidencia.nombre}
                                 </div>

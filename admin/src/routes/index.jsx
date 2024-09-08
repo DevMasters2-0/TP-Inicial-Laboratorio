@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { IncidenciaDetalle, Incidencias } from '../components';
+import IncidenciaModificar from "../components/IncidenciaModificar/IncidenciaModificar";
 import Dashboard from '../components/Dashboard';
 import MapaPage from '../components/MapaPage';
 import { NotFound } from '../ui';
@@ -20,6 +21,7 @@ const Router = () => {
             <Route index element={<MapaPage />} />
             <Route path="incidencias" element={<Incidencias />} />
             <Route path="incidencias/:id" element={<IncidenciaDetalle />} />
+            <Route path="incidencias/:id/modificar" element={<IncidenciaModificar />} />
           </Route>
         </Route>
 
