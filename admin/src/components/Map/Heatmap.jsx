@@ -37,6 +37,17 @@ const Heatmap = ({ data=heatmapData }) => {
       maxZoom: 17 // Ajusta el zoom máximo
     }).addTo(map);
 
+    /**
+    data.forEach(incidencia => {
+      const { latitud, longitud, estado } = incidencia;
+
+      L.marker([latitud, longitud])
+        .addTo(map)
+        .bindTooltip(estado, { permanent: true, direction: 'top' })
+        .openTooltip();
+    });
+     */
+
     // Limpiar el mapa al desmontar el componente
     return () => {
       map.remove();
