@@ -3,13 +3,13 @@ import { Outlet } from 'react-router'
 import { Header } from '../ui'
 import Sidebar from './Sidebar'
 
-const Dashboard = ({ isAuthenticated, setIsAuthenticated }) => {
+const Dashboard = () => {
 
     return <>
-        <Header isAuthenticated={isAuthenticated} />
+        <Header/>
         <div className="divisor-container">
-            <Sidebar setIsAuthenticated={setIsAuthenticated} />
-            <div className="content" setIsAuthenticated={setIsAuthenticated}>
+            <Sidebar/>
+            <div className="content">
                 <Outlet />
             </div>
         </div>

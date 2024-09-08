@@ -1,13 +1,14 @@
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../context/AuthProvider';
 
-const Sidebar = ({ setIsAuthenticated }) => {
+const Sidebar = () => {
   const navigate = useNavigate();
+  const { logout } = useAuthContext();
 
-  const logout = () => {
-    console.log("Cerrar sesión")
-    setIsAuthenticated(false)
-    //localStorage.removeItem("token")
-    navigate("/login")
+  const handleLogout = () => {
+    console.log(" me estoy deslogueando paapaaaaaaa")
+    logout()
+    navigate('/login')
   }
 
   return (
@@ -15,7 +16,7 @@ const Sidebar = ({ setIsAuthenticated }) => {
       <ul>
         <li onClick={() => { navigate('/admin/') }}>Dashboard</li>
         <li onClick={() => { navigate('/admin/incidencias') }}>Incidencias</li>
-        <li onClick={() => { logout() }}>Cerrar Sesión</li>
+        <li onClick={handleLogout}>Cerrar Sesión</li>
       </ul>
       <button className="cerrar-left-menu">&lt;</button>
     </div>

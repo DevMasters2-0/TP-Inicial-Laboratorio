@@ -1,15 +1,17 @@
 import React from 'react'
+import { useAuthContext } from '../context/AuthProvider'
 
-const Header = ({ isAuthenticated }) => {
-  console.log("Desde header")
-  console.log(isAuthenticated)
+const Header = () => {
+  const { usuario } = useAuthContext();
+  console.log("El usuario es: ", usuario)
   return (
     <header>
       <h1>NMS</h1>
-      <div className="nombre">
+      <div className="perfil">
         <p>
-          <strong>{isAuthenticated.nombre} {isAuthenticated.apellido}</strong>
+          <strong>{usuario.nombre + " " + usuario.apellido}</strong>
         </p>
+       
       </div>
     </header>
   )

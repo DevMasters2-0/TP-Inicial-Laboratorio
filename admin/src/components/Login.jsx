@@ -1,24 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import './Login.css'; // Importamos el archivo CSS
-import logoApp from '../assets/nms-logo2.png'; // Importamos la imagen
+import './Login.css'; 
+import logoApp from '../assets/nms-logo2.png'; 
 import axios from "axios";
+import { useAuthContext } from "../context/AuthProvider";
 
-const Login = ({ setIsAuthenticated }) => {
+const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const { login, isAuthenticated } = useAuthContext();
     const navigate = useNavigate();
 
     const handleLogin = (e) => {
         e.preventDefault();
-        console.log("Form enviado")
         axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, { username, password })
             .then(response => {
 
                 if (response.status === 200) {
-                    setIsAuthenticated(response.data.user);
-                    navigate("/admin");
+                    login(response.data.user)
+                    navigate('/admin')
                 } else {
                     setError("Credenciales incorrectas");
                 }
@@ -27,18 +28,6 @@ const Login = ({ setIsAuthenticated }) => {
                 console.log(error)
                 setError("Error al autenticar");
             });
-
-
-
-
-        /*Simulación de autenticación
-        if (email === "user@example.com" && password === "password123") {
-
-            navigate("/admin");
-        } else {
-            setError("Credenciales incorrectas");
-        }
-            */
     };
 
     return (
