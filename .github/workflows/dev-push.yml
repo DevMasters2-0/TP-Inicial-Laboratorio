@@ -103,8 +103,8 @@ jobs:
         run: docker-compose -f docker-compose-dev.yml -p dm-nms down
       - name: Desplegar en PWS
         env:
-      # Variables de entorno desde secrets
           EMAIL_SMTP_USER: ${{ secrets.EMAIL_SMTP_USER }}
           EMAIL_SMTP_PASSWORD: ${{ secrets.EMAIL_SMTP_HOST }}
           EMAIL_SMTP_HOST: ${{ secrets.EMAIL_SMTP_SERVER }}
+          TEST: "true"
         run: docker-compose -f docker-compose-dev.yml -p dm-nms up -d

@@ -10,7 +10,8 @@ services:
     environment:
       - EMAIL_SMTP_USER=${EMAIL_SMTP_USER}
       - EMAIL_SMTP_PASSWORD=${EMAIL_SMTP_HOST}
-      - EMAIL_SMTP_HOST=${secrets.EMAIL_SMTP_SERVER}
+      - EMAIL_SMTP_HOST=${EMAIL_SMTP_SERVER}
+      - TEST=${TEST}
 
   admin:
     image: ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-admin-dev:latest
