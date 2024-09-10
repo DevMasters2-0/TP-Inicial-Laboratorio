@@ -21,7 +21,7 @@ class EmailController {
 
         this.transporter = nodemailer.createTransport({
             service: "Amazon SES",
-            host: process.env.EMAIL_SMTP_HOST,
+            host: process.env.EMAIL_SMTP_SERVER,
             port: 587,
             secure: true,
             auth: {

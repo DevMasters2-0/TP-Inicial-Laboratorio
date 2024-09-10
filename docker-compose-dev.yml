@@ -10,7 +10,7 @@ services:
     environment:
       - EMAIL_SMTP_USER=${EMAIL_SMTP_USER}
       - EMAIL_SMTP_PASSWORD=${EMAIL_SMTP_HOST}
-      - EMAIL_SMTP_HOST=${EMAIL_SMTP_SERVER}
+      - EMAIL_SMTP_SERVER=${EMAIL_SMTP_SERVER}
       - TEST=${TEST}
 
   admin:
