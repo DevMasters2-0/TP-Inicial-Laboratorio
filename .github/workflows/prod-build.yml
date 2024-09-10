@@ -97,13 +97,13 @@ jobs:
         - name: Quien soy
           run: whoami
         - name: Bajar servicio anterior Intento 1
-          run: docker-compose -f docker-compose.yml -p dm-nms down
+          run: docker-compose -f docker-compose-prod.yml -p dm-nms down
         - name: Bajar servicio anterior Intento 2
-          run: docker-compose -f docker-compose.yml -p dm-nms down
+          run: docker-compose -f docker-compose-prod.yml -p dm-nms down
         - name: Desplegar en LWS
           env:
             EMAIL_SMTP_USER: ${{ secrets.EMAIL_SMTP_USER }}
             EMAIL_SMTP_PASSWORD: ${{ secrets.EMAIL_SMTP_PASSWORD }}
             EMAIL_SMTP_SERVER: ${{ secrets.EMAIL_SMTP_SERVER }}
             TEST: "true"
-          run: docker-compose -f docker-compose.yml -p dm-nms up -d
+          run: docker-compose -f docker-compose-prod.yml -p dm-nms up -d
