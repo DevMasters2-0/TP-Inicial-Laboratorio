@@ -13,16 +13,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-
-      # Paso 3: Autenticar en GitHub Container Registry
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-
   build-backend:
     runs-on: potus
     needs: setup
@@ -112,4 +102,9 @@ jobs:
       - name: Bajar servicio anterior Intento 2
         run: docker-compose -f docker-compose-dev.yml -p dm-nms down
       - name: Desplegar en PWS
+        env:
+      # Variables de entorno desde secrets
+          EMAIL_SMTP_USER: ${{ secrets.EMAIL_SMTP_USER }}
+          EMAIL_SMTP_PASSWORD: ${{ secrets.EMAIL_SMTP_HOST }}
+          EMAIL_SMTP_HOST: ${{ secrets.EMAIL_SMTP_SERVER }}
         run: docker-compose -f docker-compose-dev.yml -p dm-nms up -d

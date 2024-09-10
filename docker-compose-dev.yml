@@ -7,8 +7,10 @@ services:
     restart: unless-stopped
     ports:
       - "5175:3000"
-    volumes:
-      - ./backend/mydatabase.sqlite:/app/mydatabase.sqlite
+    environment:
+      - EMAIL_SMTP_USER=${EMAIL_SMTP_USER}
+      - EMAIL_SMTP_PASSWORD=${EMAIL_SMTP_HOST}
+      - EMAIL_SMTP_HOST=${secrets.EMAIL_SMTP_SERVER}
 
   admin:
     image: ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-admin-dev:latest
