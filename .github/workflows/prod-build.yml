@@ -16,15 +16,14 @@ jobs:
     runs-on: potus
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
 
   build-client:
     runs-on: potus
     needs: setup
     steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
       - name: Setup dependencias de client
         working-directory: ./client 
         run: npm install
@@ -37,6 +36,9 @@ jobs:
     runs-on: potus
     needs: setup
     steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
       - name: Setup dependencias de admin
         working-directory: ./admin 
         run: npm install
@@ -59,7 +61,7 @@ jobs:
 
   deploy-admin:
     runs-on: potus
-    needs: setup
+    needs: build-admin
     steps:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -73,6 +75,8 @@ jobs:
     runs-on: potus
     needs: setup
     steps:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
       - name: Build Docker image BACKEND
         run: docker build -t ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-server:latest -f ./backend/Dockerfile-prod ./backend
   
