@@ -1,0 +1,14 @@
+name: Api Server Deploy
+
+on:
+  workflow_run:
+    workflows: ["Deploy NMS Produccion"] # Nombre del primer workflow que debe completar
+    types:
+      - completed # Puedes usar 'success' si solo quieres que se ejecute cuando termine con éxito
+
+jobs:
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print message
+        run: echo "This is Workflow 2, triggered by Workflow 1"
