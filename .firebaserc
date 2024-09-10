@@ -1,0 +1,19 @@
+{
+  "projects": {
+    "default": "nms-devmaster"
+  },
+  "targets": {
+    "nms-devmaster": {
+      "hosting": {
+        "web-admin": [
+          "web-admin-nms"
+        ],
+        "web-client": [
+          "web-client-nms"
+        ]
+      }
+    }
+  },
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
+}
