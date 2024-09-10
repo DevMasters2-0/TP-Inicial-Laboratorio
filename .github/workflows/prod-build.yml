@@ -63,12 +63,10 @@ jobs:
     runs-on: potus
     needs: build-admin
     steps:
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
-          projectId: nms-devmaster
-          channelId: live
-          target: web-admin
+      - uses: lowply/deploy-firebase@v0.0.5
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_PROJECT: nms-devmaster
 
 
   build-server:
@@ -77,15 +75,24 @@ jobs:
     steps:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Docker image BACKEND
         run: docker build -t ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-server:latest -f ./backend/Dockerfile-prod ./backend
-  
+      - name: Push Docker image to GCR BACKEND
+        run: docker push ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-server:latest
 
   deploy-server:
       runs-on: lws01
       needs: build-server
       steps:
         - uses: actions/checkout@v4
+        - name: Quien soy
+          run: whoami
         - name: Bajar servicio anterior Intento 1
           run: docker-compose -f docker-compose.yml -p dm-nms down
         - name: Bajar servicio anterior Intento 2
@@ -96,4 +103,4 @@ jobs:
             EMAIL_SMTP_PASSWORD: ${{ secrets.EMAIL_SMTP_PASSWORD }}
             EMAIL_SMTP_SERVER: ${{ secrets.EMAIL_SMTP_SERVER }}
             TEST: "true"
-          run: docker-compose -f docker-compose-dev.yml -p dm-nms up -d
+          run: docker-compose -f docker-compose.yml -p dm-nms up -d
