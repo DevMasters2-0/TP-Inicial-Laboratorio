@@ -4,8 +4,8 @@ on:
   workflow_run:
     workflows: ["Deploy NMS Produccion"] # Nombre del primer workflow que debe completar
     types:
-      - completed # Puedes usar 'success' si solo quieres que se ejecute cuando termine con éxito
-
+      - success 
+      
 jobs:
   job2:
     runs-on: ubuntu-latest
