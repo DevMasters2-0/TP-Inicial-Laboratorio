@@ -53,9 +53,9 @@ jobs:
     steps:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NMS_DEVMASTER }}
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           projectId: nms-devmaster
+          channelId: live
           target: web-client
 
 
@@ -65,9 +65,9 @@ jobs:
     steps:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NMS_DEVMASTER }}
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           projectId: nms-devmaster
+          channelId: live
           target: web-admin
 
 
@@ -85,6 +85,7 @@ jobs:
       runs-on: lws01
       needs: build-server
       steps:
+        - uses: actions/checkout@v4
         - name: Bajar servicio anterior Intento 1
           run: docker-compose -f docker-compose.yml -p dm-nms down
         - name: Bajar servicio anterior Intento 2
