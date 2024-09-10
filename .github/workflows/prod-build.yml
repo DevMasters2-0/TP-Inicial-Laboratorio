@@ -81,4 +81,18 @@ jobs:
         run: docker build -t ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-server:latest -f ./backend/Dockerfile-prod ./backend
   
 
-  
+  deploy-server:
+      runs-on: lws01
+      needs: build-server
+      steps:
+        - name: Bajar servicio anterior Intento 1
+          run: docker-compose -f docker-compose.yml -p dm-nms down
+        - name: Bajar servicio anterior Intento 2
+          run: docker-compose -f docker-compose.yml -p dm-nms down
+        - name: Desplegar en LWS
+          env:
+            EMAIL_SMTP_USER: ${{ secrets.EMAIL_SMTP_USER }}
+            EMAIL_SMTP_PASSWORD: ${{ secrets.EMAIL_SMTP_PASSWORD }}
+            EMAIL_SMTP_SERVER: ${{ secrets.EMAIL_SMTP_SERVER }}
+            TEST: "true"
+          run: docker-compose -f docker-compose-dev.yml -p dm-nms up -d
