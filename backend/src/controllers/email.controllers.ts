@@ -20,13 +20,14 @@ class EmailController {
     constructor() {
 
         this.transporter = nodemailer.createTransport({
-            service: "Gmail",
-            host: "smtp.gmail.com",
-            port: 465,
+            service: "Amazon SES",
+            host: process.env.EMAIL_SMTP_HOST,
+            port: 587,
             secure: true,
             auth: {
-                user: 'gabriellimiguel143@gmail.com',
-                pass: 'sdsg thpy abor uxyt', //clave de aplicacion - no es la clave del gabi
+                user: process.env.EMAIL_SMTP_USER,
+                pass: process.env.EMAIL_SMTP_PASSWORD, //clave de aplicacion - no es la clave del gabi
+
             },
         });
     }
@@ -36,7 +37,7 @@ class EmailController {
         let cuerpo = (theme == emailSubject.CREATE) ? emailMessage.CREATE : emailMessage.FINALIZE;
 
         let mailOptions = {
-            from: 'gabriellimiguel143@gmail.com',
+            from: 'nms@loge.ar',
             to: incidencia?.email,
             subject: theme,
             text: cuerpo + "\n" + this.showdata(incidencia)
