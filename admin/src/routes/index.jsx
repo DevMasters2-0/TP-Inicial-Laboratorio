@@ -10,7 +10,7 @@ import { useAuthContext } from '../context/AuthProvider';
 
 const Router = () => {
   const { isAuthenticated } = useAuthContext(); // Asegúrate de que el nombre sea consistente
-
+  console.log("Esta autenticado: ", isAuthenticated)
   return (
     <BrowserRouter>
       <Routes>
@@ -24,11 +24,8 @@ const Router = () => {
             <Route path="incidencias/:id/modificar" element={<IncidenciaModificar />} />
           </Route>
         </Route>
-
-        {/* Ruta de login */}
+        
         <Route path="/login" element={!isAuthenticated ? <Login /> : <Navigate to="/admin" replace />} />
-
-        {/* Ruta no encontrada */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
