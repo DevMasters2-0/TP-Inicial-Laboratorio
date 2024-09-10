@@ -133,3 +133,7 @@ dist
 admin/build
 client/build
 backend/build
+
+
+#firebase cache
+.firebase/
