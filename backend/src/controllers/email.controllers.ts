@@ -23,7 +23,7 @@ class EmailController {
             service: "Amazon SES",
             host: process.env.EMAIL_SMTP_SERVER,
             port: 587,
-            secure: true,
+            secure: false,
             auth: {
                 user: process.env.EMAIL_SMTP_USER,
                 pass: process.env.EMAIL_SMTP_PASSWORD, //clave de aplicacion - no es la clave del gabi

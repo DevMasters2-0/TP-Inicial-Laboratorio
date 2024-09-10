@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  backend:
+    image: ghcr.io/devmasters2-0/tp-inicial-laboratorio/nms-server:latest
+    container_name: nms-server-prod
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - EMAIL_SMTP_USER=${EMAIL_SMTP_USER}
+      - EMAIL_SMTP_PASSWORD=${EMAIL_SMTP_PASSWORD}
+      - EMAIL_SMTP_SERVER=${EMAIL_SMTP_SERVER}
