@@ -37,7 +37,7 @@ class EmailController {
         let cuerpo = (theme == emailSubject.CREATE) ? emailMessage.CREATE : emailMessage.FINALIZE;
 
         let mailOptions = {
-            from: 'nms@loge.ar',
+            from: '“NMS - Gestión de Incidencias Vecinales” nms@loge.ar',
             to: incidencia?.email,
             subject: theme,
             text: cuerpo + "\n" + this.showdata(incidencia)
