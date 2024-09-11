@@ -106,6 +106,7 @@ jobs:
           EMAIL_SMTP_USER: ${{ secrets.EMAIL_SMTP_USER }}
           EMAIL_SMTP_PASSWORD: ${{ secrets.EMAIL_SMTP_PASSWORD }}
           EMAIL_SMTP_SERVER: ${{ secrets.EMAIL_SMTP_SERVER }}
-          VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
+          VITE_API_IMAGE: ${{ secrets.VITE_API_IMAGE }}
+          
           TEST: "true"
         run: docker-compose -f docker-compose-dev.yml -p dm-nms up -d
