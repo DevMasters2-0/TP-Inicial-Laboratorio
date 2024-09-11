@@ -80,10 +80,5 @@ jobs:
             EMAIL_SMTP_USER: ${{ secrets.EMAIL_SMTP_USER }}
             EMAIL_SMTP_PASSWORD: ${{ secrets.EMAIL_SMTP_PASSWORD }}
             EMAIL_SMTP_SERVER: ${{ secrets.EMAIL_SMTP_SERVER }}
-<<<<<<< HEAD
-            VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
-            TEST: "true"
-=======
->>>>>>> devops
           run: docker-compose -f docker-compose-prod.yml -p dm-nms up -d
 
