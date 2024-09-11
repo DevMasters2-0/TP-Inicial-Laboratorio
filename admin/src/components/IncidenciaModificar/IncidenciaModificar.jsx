@@ -151,10 +151,10 @@ const IncidenciaModificar = () => {
                         </div>
                         <div className="campo-container ">
                             <div className="campo">TEMA</div>
-                            <div className="dato">
-                                <select value={temaSeleccionado} onChange={handleTema}>
+                            <div className="dato" style={{fontWeight: 'bold'}}>
+                                <select value={temaSeleccionado} onChange={handleTema} style={{backgroundColor: 'white',fontWeight:'bold', cursor: 'pointer', border: 'solid 1px black', padding:'4px', borderRadius: '0.2rem'}}>
                                     {temas.map((tema, index) => (
-                                        <option key={index} value={tema}>
+                                        <option key={index} value={tema} style={{fontWeight:'bold', textAlign:'center'}}>
                                             {tema}
                                         </option>
                                     ))}
@@ -172,9 +172,9 @@ const IncidenciaModificar = () => {
                         <div className="campo-container">
                             <div className="campo">ESTADO</div>
                             <div className="dato">
-                                <select value={estadoSeleccionado} onChange={handleEstado}>
+                                <select value={estadoSeleccionado} onChange={handleEstado} style={{backgroundColor: 'white',fontWeight:'bold', cursor: 'pointer', border: 'solid 1px black', padding:'4px', borderRadius: '0.2rem'}}>
                                     {estados.map((estado, index) => (
-                                        <option key={index} value={estado}>
+                                        <option key={index} value={estado} style={{fontWeight:'bold'}}>
                                             {estado}
                                         </option>
                                     ))}
