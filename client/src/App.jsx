@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import WebcamCapture from './components/CamaraWeb/WebcamCapture';
+import { Toaster, toast } from 'react-hot-toast';
 
 function App() {
   const [userLocation, setUserLocation] = useState(null);
@@ -20,6 +21,27 @@ function App() {
   const [temas, setTemas] = useState([]);
   const [riesgos, setRiesgos] = useState([]);
   const [viewCamara, setViewCamara] = useState(false);
+  const [formularioEnviado, setFormularioEnviado] = useState(false);
+
+  const finish = () => {
+    toast.success('Incidencia Enviada Exitosamente!');
+    setFormularioEnviado(true);
+  }
+
+  const handleRestart = () => {
+    setFormularioEnviado(false);
+    setFormData({
+      nombre: '',
+      dni: '',
+      email: '',
+      localidad: '',
+      tema: '',
+      nivelDeRiesgo: '',
+      descripcion: '',
+      ubicacion: { latitud: 0, longitud: 0 },
+      image_url: '' 
+    });
+  }
 
   const getUserLocation = () => {
     return new Promise((resolve, reject) => {
@@ -98,7 +120,6 @@ function App() {
           ubicacion: locacion,
         }));
       }
-      console.log('Form submitted:', formData);
 
       const response = await fetch(`${import.meta.env.VITE_API_URL}/incidencias`, {
         method: 'POST',
@@ -108,13 +129,11 @@ function App() {
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) {
+      if (response.ok) {
+        finish();
+      } else {
         throw new Error('Network response was not ok');
       }
-
-      const result = await response.json();
-      console.log('Response:', result);
-
     } catch (error) {
       console.error('Error submitting form:', error);
     }
@@ -170,12 +189,14 @@ function App() {
           <br />
           <br />
           Reportar problemas: Si ves algún inconveniente en las calles, parques o espacios públicos, puedes informarlo aquí.
+          <br />
           Hacer solicitudes: Solicita atención para incidencias que necesitan ser revisadas o solucionadas.
+          <br />
           Para comenzar, completa el formulario con la información relevante. ¡Tu participación es clave para mantener nuestra comunidad en óptimas condiciones!
         </p>
       </div>
 
-      {viewCamara ? (
+      {(viewCamara && !formularioEnviado) ? (
         <div className='camara-container'>
           <WebcamCapture onCapture={handleCapture} />
           <button className="toggle-camara-btn abierta" onClick={handleToggleCamara}>
@@ -183,12 +204,12 @@ function App() {
           </button>
         </div>
       ) : (
-        <button className="toggle-camara-btn" onClick={handleToggleCamara}>
+        <button className={`toggle-camara-btn ${formularioEnviado ? 'enviado' : ''}`} onClick={handleToggleCamara}>
           Sacar una Foto
         </button>
       )}
 
-      <div className='form-container'>
+      <div className={`form-container ${formularioEnviado ? 'enviado': ''}`}>
         <form onSubmit={handleSubmit} className='form'>
           <div className='form-group'>
             <label htmlFor='nombre'>Nombre</label>
@@ -267,7 +288,7 @@ function App() {
               {riesgos.length > 0 && riesgos.map((option, index) => (
                 <option key={index} value={option}>
                   {option}
-                </option>
+                  </option>
               ))}
             </select>
           </div>
@@ -278,7 +299,7 @@ function App() {
               name='descripcion'
               value={formData.descripcion}
               onChange={handleChange}
-              placeholder='Enter descripcion'
+              placeholder='Escribe una breve descripción...'
               required
             />
           </div>
@@ -286,11 +307,17 @@ function App() {
             <label htmlFor='image_url'>Imagen de la incidencia</label>
             {formData.image_url && <img src={formData.image_url} alt="Subida" style={{ width: '70%', borderRadius: '0.5rem' }} />}
           </div>
-          <button type='submit' className='submit-button'>Submit</button>
+          <button type='submit' className='submit-button'>Enviar</button>
         </form>
       </div>
+
+      <Toaster position='top-center' reverseOrder={false}/>
+      {formularioEnviado ? (
+        <button className='volver-a-reportar-btn' onClick={handleRestart}>Reportar otra incidencia</button>
+      ) : null}
     </main>
   );
 }
 
 export default App;
+
