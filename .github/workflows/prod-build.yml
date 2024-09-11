@@ -29,7 +29,9 @@ jobs:
         run: npm install
       - name: Buildear client
         working-directory: ./client 
-        run: npm run build   
+        run: npm run build
+        env:
+          VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
         
         
   build-admin:
@@ -45,23 +47,13 @@ jobs:
       - name: Buildear admin
         working-directory: ./admin 
         run: npm run build   
+        
 
 
-  deploy-client:
+
+  deploy-front:
     runs-on: potus
-    needs: build-client
-    steps:
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
-          projectId: nms-devmaster
-          channelId: live
-          target: web-client
-
-
-  deploy-admin:
-    runs-on: potus
-    needs: build-admin
+    needs: [build-admin, build-client]
     steps:
       - uses: lowply/deploy-firebase@v0.0.5
         env:
@@ -105,5 +97,7 @@ jobs:
             EMAIL_SMTP_USER: ${{ secrets.EMAIL_SMTP_USER }}
             EMAIL_SMTP_PASSWORD: ${{ secrets.EMAIL_SMTP_PASSWORD }}
             EMAIL_SMTP_SERVER: ${{ secrets.EMAIL_SMTP_SERVER }}
+            VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
             TEST: "true"
           run: docker-compose -f docker-compose-prod.yml -p dm-nms up -d
+
