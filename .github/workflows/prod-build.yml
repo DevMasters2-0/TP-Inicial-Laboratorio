@@ -29,9 +29,9 @@ jobs:
         run: npm install
       - name: Buildear client
         working-directory: ./client 
-        run: VITE_API_KEY=${{ secrets.VITE_API_KEY }} npm run build
+        run: VITE_API_IMAGE=${{ secrets.VITE_API_IMAGE }} npm run build
         env:
-          VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
+          VITE_API_IMAGE: ${{ secrets.VITE_API_IMAGE }}
       - name: Setup dependencias de admin
         working-directory: ./admin 
         run: npm install
