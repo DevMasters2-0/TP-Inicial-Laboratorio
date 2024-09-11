@@ -26,6 +26,8 @@ services:
     restart: unless-stopped
     ports:
       - "5173:5173"
+    environment:
+      - VITE_BASE_URL=${VITE_BASE_URL}
 
 networks:
   default:
