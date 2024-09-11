@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../context/AuthProvider';
+import {useState} from 'react';
 
 const Sidebar = () => {
   const navigate = useNavigate();
   const { logout } = useAuthContext();
+  const [open, setOpen] = useState(true);
 
   const handleLogout = () => {
     console.log(" me estoy deslogueando paapaaaaaaa")
@@ -11,6 +13,9 @@ const Sidebar = () => {
     navigate('/login')
   }
 
+  const handlerToggleMenu = () => {
+    
+  }
   return (
     <div className="left-menu">
       <ul>
@@ -18,7 +23,7 @@ const Sidebar = () => {
         <li onClick={() => { navigate('/admin/incidencias') }}>Incidencias</li>
         <li onClick={handleLogout}>Cerrar Sesión</li>
       </ul>
-      <button className="cerrar-left-menu">&lt;</button>
+      <button className="cerrar-left-menu" onClick={handlerToggleMenu}>&lt;</button>
     </div>
   );
 };

@@ -65,9 +65,10 @@ header {
   flex: 1;
   display: flex;
   align-items: center;
-  background-color:#F8F3F6;
+  background-color: #ffffff;
   flex-direction: column;
   padding: 1rem;
+  overflow: hidden;
 }
 
 /** Contenedor del Mapa **/
@@ -75,6 +76,27 @@ header {
   overflow: hidden;
   position: relative;
   width: 100%;
+}
+
+.filtrado-fecha-container {
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+#restaurar-filtrado-fecha-btn {
+  background-color: #333;
+  color: white;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#restaurar-filtrado-fecha-btn:hover {
+  background-color: #1c1c1c;
 }
 
 /** Incidencias List **/
@@ -187,4 +209,42 @@ header {
 
 .not-found-link:hover {
   text-decoration: underline;
+}
+
+/** Graficos **/
+.graficos-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #ffffff;
+  margin-top: 0.5rem;
+  border-radius: 0.5rem;
+  width: 100%;
+  padding: 0.5rem;
+}
+.grafico-torta-container{
+  height: 300px;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+
+}
+.detalle-grafico{
+  font-weight: bold;
+  font-size: 1.2rem;  
+  flex: 1;
+  padding-left: 1rem;
+}
+
+.grafico-heatmap-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: black;
 }
