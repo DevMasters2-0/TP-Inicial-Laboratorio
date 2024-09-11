@@ -32,29 +32,12 @@ jobs:
         run: npm run build
         env:
           VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
-        
-        
-  build-admin:
-    runs-on: potus
-    needs: setup
-    steps:
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
       - name: Setup dependencias de admin
         working-directory: ./admin 
         run: npm install
       - name: Buildear admin
         working-directory: ./admin 
         run: npm run build   
-        
-
-
-
-  deploy-front:
-    runs-on: potus
-    needs: [build-admin, build-client]
-    steps:
       - uses: lowply/deploy-firebase@v0.0.5
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
@@ -97,7 +80,5 @@ jobs:
             EMAIL_SMTP_USER: ${{ secrets.EMAIL_SMTP_USER }}
             EMAIL_SMTP_PASSWORD: ${{ secrets.EMAIL_SMTP_PASSWORD }}
             EMAIL_SMTP_SERVER: ${{ secrets.EMAIL_SMTP_SERVER }}
-            VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
-            TEST: "true"
           run: docker-compose -f docker-compose-prod.yml -p dm-nms up -d
 
